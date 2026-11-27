@@ -1,0 +1,45 @@
+MINDPLACE — FASE 24
+===================
+
+Estado: COMPLETADA
+
+Implementado:
+297. Versiones persistentes de casos.
+298. Puntos de versión automáticos.
+299. Creación manual de versiones.
+300. Historial de versiones del caso.
+301. Fecha, número y descripción de versiones.
+302. Restauración de versión con guardado previo y checkpoint automático del estado actual.
+303. Backups existentes preservados.
+304. Separación entre versión, historial y Undo/Redo.
+305. Protección contra eliminación accidental.
+
+Artefactos:
+- js/core/case-versions.js
+- tests/phase24-case-versions.test.mjs
+- scripts/phase24-audit.mjs
+- src/views/Phase24View.vue
+- css/21-phase24-case-versions.css
+- docs/FASE24_FINAL.md
+
+UI:
+- Botón “🕒 Versiones” en el tablero.
+- Crear versión manual.
+- Ver historial persistente.
+- Restaurar.
+- Proteger / desproteger.
+- Eliminar versiones no protegidas.
+
+Validación:
+- npm test -> 72/72 PASS
+- npm run test:phase24 -> 7/7 PASS
+- auditoría Fase 24 -> PASS
+- node --check js/core/case-versions.js -> PASS
+- node --check js/app.js -> PASS
+
+Nota:
+En este entorno no se ha ejecutado vue-tsc/build porque la entrega no contiene node_modules y la instalación ha agotado el tiempo disponible. En Windows ejecutar después de npm install:
+  npm run typecheck
+  npm run build
+  npm test
+  npm run test:phase24

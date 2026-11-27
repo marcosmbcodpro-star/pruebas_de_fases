@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-vvt4KWwuNr51XfE5m+hzeNEGhiOfZzG97ccfqGsPwvE='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<title>Tablero de Caso</title>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Kalam:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<div id="newCaseOverlay" class="hidden" inert aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ncTitle">
+  <div id="newCaseBox">
+    <div class="pin"></div>
+    <h2 id="ncTitle">Nuevo caso</h2>
+    <div class="field">
+      <label for="ncName">Nombre</label>
+      <input type="text" id="ncName" placeholder="Ej. El faro de Bright Falls">
+    </div>
+    <div class="field">
+      <label for="ncDesc">Descripción</label>
+      <textarea id="ncDesc" placeholder="De qué trata este caso..."></textarea>
+    </div>
+    <div class="field">
+      <label for="ncStatus">Estado</label>
+      <select id="ncStatus">
+        <option value="abierto">Abierto</option>
+        <option value="curso">En curso</option>
+        <option value="resuelto">Resuelto</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ncCategory">Categoría</label>
+      <input type="text" id="ncCategory" placeholder="Ej. Negocios, Investigación, Personal…" maxlength="40">
+      <span class="category-field-help">Puedes dejarla vacía o escribir una categoría personalizada.</span>
+    </div>
+    <div class="actions">
+      <button type="button" class="cancel" id="ncCancel">Cancelar</button>
+      <button type="button" class="accept" id="ncAccept">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmOverlay" class="hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="confirmMsg">
+  <div id="confirmBox">
+    <div class="msg" id="confirmMsg"></div>
+    <div class="actions">
+      <button type="button" class="no" id="confirmNo">Cancelar</button>
+      <button type="button" class="yes" id="confirmYes">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div id="caseExportOverlay" class="hidden" aria-hidden="true">
+  <div id="caseExportBox" role="dialog" aria-modal="true" aria-labelledby="caseExportTitle">
+    <h2 id="caseExportTitle">↗ Exportar caso</h2>
+    <div id="caseExportCaseName" class="export-case-title">Caso</div>
+
+    <div class="export-options">
+      <button type="button" class="export-option" id="exportMapVisualBtn">
+        <span class="ico">🗺️</span>
+        <span>
+          <strong>Mapa visual</strong>
+          <span>Descarga una versión visual del mapa completo para guardar, imprimir o compartir.</span>
+        </span>
+      </button>
+
+      <button type="button" class="export-option" id="exportReportBtn">
+        <span class="ico">📄</span>
+        <span>
+          <strong>Informe</strong>
+          <span>Descarga un informe estructurado del caso con preguntas, tarjetas, estados y conclusiones. Se abre como HTML y puede guardarse como PDF desde el navegador.</span>
+        </span>
+      </button>
+
+      <button type="button" class="export-option" id="exportDataBtn">
+        <span class="ico">💾</span>
+        <span>
+          <strong>Guardar copia del caso</strong>
+          <span>Descarga todos los datos del caso en JSON para conservar una copia o reutilizarla más adelante.</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="export-actions">
+      <button type="button" id="caseExportClose">Cerrar</button>
+    </div>
+  </div>
+</div>
+<div id="caseExportToast" class="case-export-toast" aria-live="polite"></div>
+
+<div id="trashOverlay" class="hidden" aria-hidden="true">
+  <div id="trashBox" role="dialog" aria-modal="true" aria-labelledby="trashTitle">
+    <h2 id="trashTitle">🗑 Papelera</h2>
+    <p class="trash-sub">Los casos enviados a la papelera se conservan hasta que los restaures o los elimines definitivamente.</p>
+    <div id="trashList"></div>
+    <button type="button" id="trashClose">Cerrar</button>
+  </div>
+</div>
+
+<div id="caseImportOverlay" class="hidden" aria-hidden="true">
+  <div id="caseImportBox" role="dialog" aria-modal="true" aria-labelledby="caseImportTitle">
+    <h2 id="caseImportTitle">📥 Importar caso</h2>
+    <p class="import-sub">Selecciona una copia JSON exportada desde MindPlace. El caso se añadirá a tus casos actuales sin sustituir ninguno automáticamente.</p>
+    <div class="import-file-box">
+      <label for="caseImportFile">Copia del caso (.json)</label>
+      <input id="caseImportFile" type="file" accept=".json,application/json">
+      <div id="caseImportFileName">Ningún archivo seleccionado.</div>
+    </div>
+    <div id="caseImportStatus" aria-live="polite"></div>
+    <div class="import-actions">
+      <button type="button" id="caseImportClose">Cancelar</button>
+      <button type="button" id="caseImportAccept" disabled>Importar caso</button>
+    </div>
+  </div>
+</div>
+
+<div id="backupOverlay" class="hidden" aria-hidden="true">
+  <div id="backupBox" role="dialog" aria-modal="true" aria-labelledby="backupTitle">
+    <div class="backup-head">
+      <div>
+        <h2 id="backupTitle">💾 Copias de seguridad de MindPlace</h2>
+        <p class="backup-sub">Protege o migra <strong>todo MindPlace</strong>: casos, categorías, tarjetas, conexiones, favoritos, historial, papelera y preferencias.</p>
+      </div>
+      <button type="button" id="backupCloseTop" class="backup-close-top" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="backup-choice-grid">
+      <button type="button" class="backup-choice active" id="backupCreateChoice">
+        <span class="backup-choice-icon">💾</span>
+        <span><strong>Crear copia de seguridad</strong><small>Descarga un archivo completo para guardarlo, compartirlo o migrar MindPlace a otro navegador, servidor o usuario.</small></span>
+      </button>
+      <button type="button" class="backup-choice" id="backupImportChoice">
+        <span class="backup-choice-icon">📥</span>
+        <span><strong>Importar copia de seguridad</strong><small>Selecciona una copia creada por MindPlace para migrar o recuperar todos los datos.</small></span>
+      </button>
+    </div>
+
+    <div id="backupCreatePanel" class="backup-panel">
+      <div class="backup-info-box"><strong>La copia incluirá:</strong><span>casos · categorías · favoritos · tarjetas · conexiones · historial · papelera · preferencias</span></div>
+      <button type="button" class="backup-primary" id="backupCreateBtn">💾 Crear y descargar copia completa</button>
+    </div>
+
+    <div id="backupImportPanel" class="backup-panel hidden">
+      <div class="backup-file">
+        <label for="backupFile">Selecciona una copia completa de MindPlace</label>
+        <input id="backupFile" type="file" accept=".json,application/json">
+        <div id="backupFileName">Ningún archivo seleccionado.</div>
+      </div>
+      <div id="backupStatus" aria-live="polite"></div>
+      <div class="backup-actions">
+        <button type="button" id="backupAddBtn" disabled>➕ Añadir los casos de la copia</button>
+        <button type="button" id="backupReplaceBtn" disabled>♻ Reemplazar el proyecto actual</button>
+      </div>
+      <p class="backup-warning"><strong>Importante:</strong> “Añadir” conserva tus datos actuales. “Reemplazar” sustituye el proyecto actual por la copia y requiere confirmación.</p>
+    </div>
+
+    <div class="backup-footer"><button type="button" id="backupClose">Cerrar</button></div>
+  </div>
+</div>
+
+<div id="aiPaymentOverlay" class="hidden">
+  <div id="aiPaymentBox">
+    <h2>🧠 Crear mapa mental con IA</h2>
+    <p class="ai-pay-sub">Esta función está preparada, pero todavía no se ejecutará desde esta versión. Sirve como acceso para la futura función de IA.</p>
+
+    <div class="ai-pay-field">
+      <label for="aiFuturePrompt">¿Qué quieres analizar, investigar o crear?</label>
+      <textarea id="aiFuturePrompt" placeholder="Ej.: Quiero montar una tienda de coches en Murcia y estudiar clientes, proveedores, competencia y mejores zonas."></textarea>
+    </div>
+
+    <div class="ai-pay-field">
+      <label for="aiFutureFile">📎 Adjuntar archivo (opcional)</label>
+      <input id="aiFutureFile" type="file"
+        accept=".pdf,.doc,.docx,.txt,.md,.markdown,.html,.htm,.json,.csv,.xml,.js,.ts,.py,.java,.cs,.cpp,.h,.sql,.log,.rtf,.epub,.png,.jpg,.jpeg,.webp,.gif,.bmp,.svg">
+      <div id="aiFutureFileName" class="ai-future-file-name">Ningún archivo seleccionado.</div>
+      <div class="ai-pay-help">
+        Puedes adjuntar prácticamente cualquier material que quieras convertir en un mapa mental, por ejemplo: <strong>un libro, un cómic, documentación, una guía, un programa, una aplicación, información de una empresa, una base de datos, un proyecto, un informe o cualquier otro documento o archivo compatible.</strong>
+      </div>
+      <div class="ai-pay-help">Puedes escribir una idea, adjuntar un archivo o hacer ambas cosas. En esta versión el archivo solo queda preparado para la futura función de IA.</div>
+    </div>
+
+    <div class="ai-pay-field">
+      <label for="aiFutureName">Nombre del caso (opcional)</label>
+      <input id="aiFutureName" type="text" placeholder="Ej.: Tienda de coches en Murcia">
+    </div>
+
+    <div id="aiPaymentNotice">
+      <strong>Se necesita una forma de pago o créditos disponibles para ejecutar esta función.</strong><br>
+      La creación con IA utiliza la API de OpenAI y requiere saldo/facturación configurada. En esta versión no se realizará ninguna llamada ni se cobrará nada al pulsar Aceptar.
+    </div>
+
+    <div class="ai-pay-actions">
+      <button id="aiPaymentCancel" type="button">Cancelar</button>
+      <button id="aiPaymentAccept" type="button">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<div id="menu">
+  <div id="themeWrap">
+    <button class="tool theme" id="themeBtn" type="button">🎨 Tema</button>
+    <div id="themeMenu" class="hidden">
+      <button class="theme-option" data-theme="allanwake2">🕯️ Allan Wake 2</button>
+      <button class="theme-option" data-theme="detective">🕵 Detective</button>
+      <button class="theme-option" data-theme="detective2">🕵‍♂️ Detective 2</button>
+      <button class="theme-option" data-theme="futuristic">🤖 Futurista</button>
+    </div>
+  </div>
+  <div class="menu-header-default">
+    <div>
+      <h1>Archivo de Casos</h1>
+      <div class="sub">selecciona un caso o abre uno nuevo</div>
+    </div>
+    <div class="header-actions">
+      <button class="aiCaseHeaderBtn" type="button">🧠 CREAR CON IA</button>
+      <button class="importCaseHeaderBtn" type="button">📥 IMPORTAR CASO</button>
+      <button class="trashCaseHeaderBtn" type="button">🗑 PAPELERA</button>
+      <button class="backupHeaderBtn" type="button">💾 COPIA</button>
+      <button class="globalSearchHeaderBtn" type="button">🔎 BUSCAR</button>
+      <button class="settingsHeaderBtn" type="button">⚙ AJUSTES</button>
+      <div class="caseFilterWrap">
+        <button class="caseFilterBtn" type="button" aria-haspopup="true" aria-expanded="false">☰ FILTROS</button>
+        <div class="caseFilterMenu hidden" role="menu">
+          <div class="case-filter-section-head">Ordenar casos</div>
+          <button class="case-sort-option" type="button" data-sort="updated-desc" role="menuitem">Más recientes</button>
+          <button class="case-sort-option" type="button" data-sort="updated-asc" role="menuitem">Más antiguos</button>
+          <button class="case-sort-option" type="button" data-sort="name-asc" role="menuitem">Nombre A–Z</button>
+          <button class="case-sort-option" type="button" data-sort="name-desc" role="menuitem">Nombre Z–A</button>
+          <button class="case-sort-option" type="button" data-sort="status" role="menuitem">Estado</button>
+          <div class="case-filter-divider"></div>
+          <div class="case-filter-section-head">Filtrar por categoría</div>
+          <div class="caseCategoryOptions"></div>
+        </div>
+      </div>
+      <button class="newCaseHeaderBtn" type="button">+ NUEVO CASO</button>
+    </div>
+  </div>
+  <div class="menu-header-aw2">
+    <div class="aw2-text">
+      <div class="aw2-kicker">[ CASE ARCHIVE · DETECTIVE OFFICE ]</div>
+      <h1 class="aw2-title">MIND<span class="dot">·</span>PLACE</h1>
+      <div class="sub">Tus casos, tus preguntas, tus hilos. Enciende la lámpara y empieza a conectar.</div>
+    </div>
+    <div class="header-actions">
+      <button class="aiCaseHeaderBtn" type="button">🧠 CREAR CON IA</button>
+      <button class="importCaseHeaderBtn" type="button">📥 IMPORTAR CASO</button>
+      <button class="trashCaseHeaderBtn" type="button">🗑 PAPELERA</button>
+      <button class="backupHeaderBtn" type="button">💾 COPIA</button>
+      <button class="globalSearchHeaderBtn" type="button">🔎 BUSCAR</button>
+      <button class="settingsHeaderBtn" type="button">⚙ AJUSTES</button>
+      <div class="caseFilterWrap">
+        <button class="caseFilterBtn" type="button" aria-haspopup="true" aria-expanded="false">☰ FILTROS</button>
+        <div class="caseFilterMenu hidden" role="menu">
+          <div class="case-filter-section-head">Ordenar casos</div>
+          <button class="case-sort-option" type="button" data-sort="updated-desc" role="menuitem">Más recientes</button>
+          <button class="case-sort-option" type="button" data-sort="updated-asc" role="menuitem">Más antiguos</button>
+          <button class="case-sort-option" type="button" data-sort="name-asc" role="menuitem">Nombre A–Z</button>
+          <button class="case-sort-option" type="button" data-sort="name-desc" role="menuitem">Nombre Z–A</button>
+          <button class="case-sort-option" type="button" data-sort="status" role="menuitem">Estado</button>
+          <div class="case-filter-divider"></div>
+          <div class="case-filter-section-head">Filtrar por categoría</div>
+          <div class="caseCategoryOptions"></div>
+        </div>
+      </div>
+      <button class="newCaseHeaderBtn" type="button">+ NUEVO CASO</button>
+    </div>
+  </div>
+  <div id="caseDashboard" class="case-dashboard" aria-label="Resumen de proyectos"></div>
+  <div id="caseGrid"></div>
+</div>
+
+<div id="board" class="hidden">
+  <div id="zoomWrap">
+    <svg id="strings"></svg>
+    <div id="cards"></div>
+  </div>
+</div>
+
+<div id="topbar" class="hidden">
+  <div style="display:flex;align-items:center;gap:14px;">
+    <button class="tool" id="backToMenu">← Casos</button>
+    <button class="tool case-nav-project" id="prevCaseProject" type="button" title="Proyecto anterior">← Anterior</button>
+    <button class="tool case-nav-project" id="nextCaseProject" type="button" title="Proyecto siguiente">Siguiente →</button>
+    <div>
+      <label class="visually-hidden" for="caseTitle">Título del caso</label><input id="caseTitle" value="CASO SIN TÍTULO" spellcheck="false">
+      <div id="caseDescBar">
+        <span id="caseStatusBadge" class="status-badge status-abierto">Abierto</span>
+        <span id="caseDescText"></span>
+      </div>
+    </div>
+  </div>
+  <div id="toolbar">
+    <button class="tool search-tool" id="caseSearchToggle" type="button" aria-expanded="false">🔎 Buscar</button>
+    <button class="tool filter-tool" id="caseFilterToggle" type="button" aria-expanded="false">☰ Filtros</button>
+    <button class="tool structure-tool" id="caseStructureToggle" type="button" aria-expanded="false">☰ Estructura</button>
+    <button class="tool link" data-action="toggle-link">Conectar</button>
+    <button class="tool focus" data-action="focus-case">🎯 Ir al caso</button>
+    <button class="tool nav-tool" type="button" id="boardNavToggle" aria-expanded="false">🧭 Navegar</button>
+    <div id="boardNavMenu" class="board-nav-menu hidden" role="menu" aria-hidden="true">
+      <div class="board-nav-section">Centrar</div>
+      <button type="button" data-action="center-all">◉ Todo el tablero</button>
+      <button type="button" data-action="center-selected">◎ Tarjeta seleccionada</button>
+      <button type="button" data-action="center-branch">⌘ Rama seleccionada</button>
+      <div class="board-nav-divider"></div>
+      <div class="board-nav-section">Navegación</div>
+      <button type="button" data-action="prev-connected">← Anterior conectado</button>
+      <button type="button" data-action="next-connected">→ Siguiente conectado</button>
+      <div class="board-nav-divider"></div>
+      <div class="board-nav-section">Organización</div>
+      <button type="button" data-action="organize-branches">🌿 Organizar ramas</button>
+      <button type="button" data-action="align-branch" data-align="left">⇤ Alinear izquierda</button>
+      <button type="button" data-action="align-branch" data-align="center">↔ Alinear centro</button>
+      <button type="button" data-action="align-branch" data-align="top">⇥ Alinear arriba</button>
+      <button type="button" data-action="distribute-branch" data-distribute="vertical">↕ Distribuir vertical</button>
+      <button type="button" data-action="distribute-branch" data-distribute="horizontal">↔ Distribuir horizontal</button>
+    </div>
+    <button class="tool organize" data-action="organize">🧭 Organizar</button>
+    <button class="tool presentation" data-action="presentation">▶ Presentar</button>
+    <button class="tool history" data-action="history">🕰 Historial</button>
+    <button class="tool diagnostics-tool" id="diagnosticsToggle" type="button" aria-controls="diagnosticsPanel" title="Diagnóstico">🧰 Diagnóstico</button>
+    <button class="tool help-tool" id="helpToggle" type="button" aria-expanded="false" aria-controls="helpPanel" title="Ayuda">?</button>
+    <button class="tool clear" data-action="clear">Vaciar todo</button>
+  </div>
+</div>
+
+
+<div id="caseActivityOverlay" class="hidden case-activity-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="caseActivityTitle">
+  <div id="caseActivityBox" class="case-activity-box">
+    <div class="case-activity-head">
+      <div><strong id="caseActivityTitle">Actividad del proyecto</strong><span class="case-activity-subtitle">Historial de cambios importantes · independiente de Undo/Redo</span></div>
+      <button id="caseActivityClose" type="button" aria-label="Cerrar actividad">✕</button>
+    </div>
+    <div id="caseActivityList" class="case-activity-list"></div>
+  </div>
+</div>
+
+<div id="diagnosticsPanel" class="hidden diagnostics-panel" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="diagnosticsTitle">
+  <div class="diagnostics-shell">
+    <div class="diagnostics-head">
+      <div><strong id="diagnosticsTitle">🧰 Diagnóstico de MindPlace</strong><span class="diagnostics-subtitle">Estado técnico y detección de incidencias</span></div>
+      <button id="diagnosticsClose" type="button" aria-label="Cerrar diagnóstico">✕</button>
+    </div>
+    <div id="diagnosticsSummary" class="diagnostics-summary" aria-live="polite"></div>
+    <section class="diagnostics-section"><h3>Resumen</h3><div id="diagnosticsDetails" class="diagnostics-details"></div></section>
+    <section class="diagnostics-section"><h3>Errores importantes</h3><div id="diagnosticsLogs" class="diagnostics-logs" aria-live="polite"></div></section>
+    <div class="diagnostics-actions"><button id="diagnosticsRefresh" type="button">↻ Actualizar diagnóstico</button><button id="diagnosticsClearLogs" type="button">🧹 Limpiar registro</button></div>
+    <p class="diagnostics-footnote">El diagnóstico es local y no envía datos fuera de MindPlace.</p>
+  </div>
+</div>
+
+<div id="helpPanel" class="hidden" aria-hidden="true">
+  <div class="help-head">
+    <strong>Ayuda rápida</strong>
+    <button id="helpClose" type="button" aria-label="Cerrar ayuda">✕</button>
+  </div>
+  <div class="help-section">
+    <div class="help-label">Acciones</div>
+    <div class="help-grid">
+      <div class="help-row"><span class="help-key">B</span><span>Buscar</span></div>
+      <div class="help-row"><span class="help-key">F</span><span>Filtros</span></div>
+      <div class="help-row"><span class="help-key">P</span><span>Presentar</span></div>
+      <div class="help-row"><span class="help-key">Esc</span><span>Cerrar / cancelar</span></div>
+      <div class="help-row"><span class="help-key">Ctrl+Z</span><span>Deshacer</span></div>
+      <div class="help-row"><span class="help-key">Ctrl+Y</span><span>Rehacer</span></div>
+      <div class="help-row"><span class="help-key">←</span><span>Anterior en presentación</span></div>
+      <div class="help-row"><span class="help-key">→</span><span>Siguiente en presentación</span></div>
+    </div>
+  </div>
+  <div class="help-section">
+    <div class="help-label">Tablero</div>
+    <div class="help-grid">
+      <div class="help-row"><span class="help-key">☆</span><span>Marcar tarjeta como favorita</span></div>
+      <div class="help-row"><span class="help-key">🔗</span><span>Conectar dos tarjetas</span></div>
+      <div class="help-row"><span class="help-key">🔒</span><span>Bloquear/desbloquear una tarjeta</span></div>
+    </div>
+  </div>
+  <div class="help-tip">La ayuda muestra solo lo esencial. Los atajos no actúan mientras escribes en un campo editable.</div>
+  <div class="help-section help-panel-extra">
+    <div class="help-label">Navegación y presentación</div>
+    <div class="help-grid">
+      <div class="help-row"><span class="help-key">Inicio</span><span>Centrar el tablero</span></div>
+      <div class="help-row"><span class="help-key">Fin</span><span>Ir al último resultado de búsqueda</span></div>
+      <div class="help-row"><span class="help-key">Espacio</span><span>Abrir/cerrar presentación cuando el foco está en el control correspondiente</span></div>
+    </div>
+    <p class="help-note">Los atajos se desactivan dentro de campos de texto y controles editables.</p>
+  </div>
+
+</div>
+
+<div id="caseSummaryOverlay" class="hidden" aria-hidden="true">
+  <div id="caseSummaryBox" role="dialog" aria-modal="true" aria-labelledby="caseSummaryTitle">
+    <div class="case-summary-head">
+      <div>
+        <div class="case-summary-kicker">RESUMEN DEL CASO</div>
+        <h2 id="caseSummaryTitle">Caso</h2>
+      </div>
+      <button id="caseSummaryClose" type="button" aria-label="Cerrar resumen">✕</button>
+    </div>
+    <div id="caseSummaryStats" class="case-summary-stats"></div>
+    <div id="caseSummaryNotice" class="case-summary-notice"></div>
+    <div id="caseSummaryPending" class="case-summary-pending"></div>
+  </div>
+</div>
+
+<div id="presentationOverlay" aria-hidden="true">
+  <div class="presentation-shell">
+    <div class="presentation-top">
+      <div>
+        <div class="presentation-kicker">MODO PRESENTACIÓN</div>
+        <div id="presentationTitle" class="presentation-title">CASO</div>
+      </div>
+      <div class="presentation-top-actions"><button id="presentationFullscreen" class="presentation-fullscreen" type="button" title="Pantalla completa">⛶ Completa</button><button id="presentationClose" class="presentation-close" type="button">✕ Salir</button></div>
+    </div>
+    <div class="presentation-progress" aria-hidden="true"><span id="presentationProgressBar"></span></div>
+    <div id="presentationContent" class="presentation-content"></div>
+    <div class="presentation-nav">
+      <button id="presentationPrev" type="button">← Anterior</button>
+      <div id="presentationCounter" class="presentation-counter">1 / 1</div>
+      <button id="presentationNext" type="button">Siguiente →</button>
+    </div>
+    <div class="presentation-hint">Teclas ← → para navegar · Esc para salir</div>
+  </div>
+</div>
+
+<button id="topbarToggle" type="button" aria-label="Ocultar menú superior">▲ Menú</button>
+<button id="cleanModeToggle" type="button" aria-label="Activar modo tablero limpio">🧠 Tablero limpio</button>
+<div id="historyPanel" aria-hidden="true">
+  <div class="history-head"><h3>Historial del pensamiento</h3><button id="historyClose" type="button">Cerrar</button></div>
+  <div class="history-actions"><button id="historySave" type="button">＋ Guardar punto de control</button></div>
+  <div id="historyList"></div>
+</div>
+<div id="caseSearchPanel" class="hidden" aria-hidden="true">
+  <div class="case-search-head">
+    <input id="caseSearchInput" type="search" autocomplete="off" placeholder="Buscar en este caso..." aria-label="Buscar en este caso">
+    <button id="caseSearchClose" type="button" aria-label="Cerrar búsqueda">✕</button>
+  </div>
+  <div class="case-search-meta">
+    <span id="caseSearchCount">Escribe para buscar</span>
+    <div class="case-search-nav">
+      <button id="caseSearchPrev" type="button" title="Resultado anterior">←</button>
+      <button id="caseSearchNext" type="button" title="Resultado siguiente">→</button>
+    </div>
+  </div>
+  <div id="caseSearchResults"></div>
+</div>
+<div id="caseFilterPanel" class="hidden" aria-hidden="true">
+  <div class="case-filter-head">
+    <strong>Filtros</strong>
+    <button id="caseFilterClose" type="button" aria-label="Cerrar filtros">✕</button>
+  </div>
+  <div class="case-filter-section">
+    <div class="case-filter-label">Tipo <span class="case-filter-help">Puedes elegir varios</span></div>
+    <div class="case-filter-options" id="caseFilterTypeOptions">
+      <button type="button" class="case-filter-option active" data-filter-type="all" aria-pressed="true">○ Todo</button>
+      <button type="button" class="case-filter-option" data-filter-type="question" aria-pressed="false">❓ Preguntas</button>
+      <button type="button" class="case-filter-option" data-filter-type="note" aria-pressed="false">📝 Nota/Hipótesis</button>
+      <button type="button" class="case-filter-option" data-filter-type="document" aria-pressed="false">📄 Documentos</button>
+      <button type="button" class="case-filter-option" data-filter-type="person" aria-pressed="false">👤 Personas</button>
+      <button type="button" class="case-filter-option" data-filter-type="photo" aria-pressed="false">📷 Fotos</button>
+      <button type="button" class="case-filter-option" data-filter-type="conclusion" aria-pressed="false">✅ Conclusiones</button>
+      <button type="button" class="case-filter-option" data-filter-type="evidence" aria-pressed="false">📎 Evidencias</button>
+      <button type="button" class="case-filter-option" data-filter-type="tag" aria-pressed="false">🏷️ Etiquetas</button>
+    </div>
+  </div>
+  <div class="case-filter-section">
+    <div class="case-filter-label">Estado <span class="case-filter-help">Puedes elegir varios</span></div>
+    <div class="case-filter-options" id="caseFilterStateOptions">
+      <button type="button" class="case-filter-option active" data-filter-state="all" aria-pressed="true">○ Todos</button>
+      <button type="button" class="case-filter-option" data-filter-state="normal" aria-pressed="false">○ Normal</button>
+      <button type="button" class="case-filter-option" data-filter-state="pending" aria-pressed="false">⏳ Pendiente</button>
+      <button type="button" class="case-filter-option" data-filter-state="validated" aria-pressed="false">✓ Validado</button>
+      <button type="button" class="case-filter-option" data-filter-state="discarded" aria-pressed="false">✕ Descartado</button>
+    </div>
+  </div>
+  <div class="case-filter-section">
+    <div class="case-filter-label">Propiedades</div>
+    <div class="case-filter-options">
+      <button type="button" class="case-filter-option" id="caseFilterFavoriteOption" data-filter-favorite="true" aria-pressed="false">⭐ Solo favoritas</button>
+      <button type="button" class="case-filter-option" id="caseFilterLockedOption" data-filter-locked="true" aria-pressed="false">🔒 Solo bloqueadas</button>
+    </div>
+  </div>
+  <div class="case-filter-section">
+    <div class="case-filter-label">Conexiones</div>
+    <div class="case-filter-options" id="caseFilterConnectionOptions">
+      <button type="button" class="case-filter-option active" data-filter-connection="any" aria-pressed="true">○ Cualquier conexión</button>
+      <button type="button" class="case-filter-option" data-filter-connection="only" aria-pressed="false">🔗 Con conexiones</button>
+      <button type="button" class="case-filter-option" data-filter-connection="none" aria-pressed="false">∅ Sin conexiones</button>
+    </div>
+  </div>
+  <div class="case-filter-footer">
+    <span id="caseFilterSummary">Sin filtros activos</span>
+    <button id="caseFilterClear" type="button">Limpiar filtros</button>
+  </div>
+</div>
+<div id="caseStructurePanel" class="hidden" aria-hidden="true">
+  <div class="case-structure-head">
+    <strong>Estructura</strong>
+    <button id="caseStructureClose" type="button" aria-label="Cerrar estructura">✕</button>
+  </div>
+  <div id="caseStructureTree" class="case-structure-tree"></div>
+</div>
+<div id="hint" class="hidden">Arrastra las tarjetas para moverlas · pulsa "Conectar" y luego dos tarjetas para unirlas con hilo · pulsa el estado del caso para cambiarlo · Ctrl+Z para deshacer</div>
+
+
+<div id="miniMap" aria-label="Minimapa del caso">
+  <div class="mini-title">Mapa</div>
+  <canvas id="miniMapCanvas"></canvas>
+  <div id="miniMapViewport" class="mini-viewport"></div>
+</div>
+<div id="farPreview" aria-hidden="true"><div class="far-preview-shell"><div class="preview-caption">Vista ampliada · pasa el ratón para previsualizar · clic para fijar · clic de nuevo para cerrar</div><div id="farPreviewContent"></div></div></div>
+
+<script type="module" src="./js/app.js"></script>
+
+<div id="settingsOverlay" class="hidden" inert aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div id="settingsBox">
+    <div class="settings-head">
+      <div><div class="settings-kicker">CONFIGURACIÓN</div><h2 id="settingsTitle" class="settings-title">Preferencias de MindPlace</h2></div>
+      <button id="settingsClose" class="settings-close" type="button" aria-label="Cerrar configuración">✕</button>
+    </div>
+    <section class="settings-section"><h3>Tema visual</h3><div class="settings-grid" id="settingsThemeGrid">
+      <button class="theme-setting" data-theme-setting="allanwake2" type="button"><strong>🕯️ Allan Wake 2</strong><span>Investiga sobre un tablero de expediente oscuro.</span></button>
+      <button class="theme-setting" data-theme-setting="detective" type="button"><strong>🕵 Detective</strong><span>Aspecto clásico de investigación.</span></button>
+      <button class="theme-setting" data-theme-setting="detective2" type="button"><strong>🕵‍♂️ Detective 2</strong><span>Más textura, contraste y ambiente.</span></button>
+      <button class="theme-setting" data-theme-setting="futuristic" type="button"><strong>🤖 Futurista</strong><span>Interfaz tecnológica con acentos de neón.</span></button>
+    </div></section>
+    <section class="settings-section"><h3>Preferencias</h3><div class="settings-grid">
+      <button class="preference-setting" id="prefReducedMotion" type="button" aria-pressed="false"><strong>♿ Menos movimiento</strong><span>Reduce transiciones y animaciones no esenciales.</span></button>
+      <button class="preference-setting" id="prefCompactUi" type="button" aria-pressed="false"><strong>▦ Interfaz compacta</strong><span>Reduce espacios y densidad para trabajar con más elementos.</span></button>
+      <button class="preference-setting" id="prefAdvancedGestures" type="button" aria-pressed="true"><strong>🤏 Gestos táctiles avanzados</strong><span>Activa pinch, doble toque, pulsación larga y navegación por deslizamiento.</span></button>
+    </div></section>
+    <div class="onboarding-actions"><button id="settingsReplayOnboarding" type="button">↻ Ver onboarding</button><button id="settingsDone" class="primary" type="button">Guardar y cerrar</button></div>
+    <p class="settings-foot">Las preferencias se guardan localmente en MindPlace. La estructura está preparada para futuras personalizaciones sin cambiar el modelo de datos de los casos.</p>
+  </div>
+</div>
+
+<div id="onboardingOverlay" class="hidden" inert aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+  <div id="onboardingBox">
+    <div class="onboarding-head"><div><div class="onboarding-kicker">PRIMEROS PASOS</div><h2 id="onboardingTitle" class="onboarding-title">Bienvenido a MindPlace</h2></div></div>
+    <div class="onboarding-steps">
+      <article class="onboarding-step"><div class="num">01</div><strong>Organiza casos</strong><p>Crea proyectos y ordénalos por estado, categoría, nombre o fecha.</p></article>
+      <article class="onboarding-step"><div class="num">02</div><strong>Construye el tablero</strong><p>Añade preguntas, evidencias, hipótesis y conclusiones, y conecta sus relaciones.</p></article>
+      <article class="onboarding-step"><div class="num">03</div><strong>Navega y presenta</strong><p>Usa Navegar, Buscar, Historial y Presentar para revisar el razonamiento.</p></article>
+    </div>
+    <div class="onboarding-actions"><button id="onboardingSkip" type="button">Saltar</button><button id="onboardingStart" class="primary" type="button">Empezar</button></div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+MindPlace — FASE 30 COMPLETA
+
+Puntos 363–372 implementados.
+Incluye manifest, iconos, service worker, estrategia de caché del shell, instalación PWA, standalone, aviso de nuevas versiones con actualización bajo confirmación del usuario y preservación de datos locales.
+Ruta de diagnóstico: /fase-30
+Tests: tests/phase30-pwa.test.mjs
+Auditoría: scripts/phase30-audit.mjs

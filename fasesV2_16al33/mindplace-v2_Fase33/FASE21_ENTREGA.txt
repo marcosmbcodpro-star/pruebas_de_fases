@@ -1,0 +1,21 @@
+MINDPLACE — ENTREGA FASE 21
+
+Fase 21 — Archivos, fotografías y cámara en móvil (261–274)
+Estado: COMPLETADA
+
+Validación realizada:
+- node --test tests/*.test.mjs -> 52/52 PASS
+- node --test tests/phase21-mobile-files.test.mjs -> 6/6 PASS
+- node scripts/phase21-audit.mjs -> FASE 21 AUDIT: PASS
+- vue-tsc --noEmit -p tsconfig.json -> PASS
+- node --check de los módulos modificados -> PASS
+
+En Windows:
+1. Abrir CMD o PowerShell dentro de la carpeta del proyecto.
+2. Ejecutar: npm install
+3. Ejecutar: npm run typecheck
+4. Ejecutar: npm run build
+5. Ejecutar: npm run test:all
+6. Ejecutar: npm run dev
+
+La Fase 21 no cambia la persistencia principal: los blobs continúan en IndexedDB (object store attachments).

@@ -1,0 +1,21 @@
+FASE 28 — Búsqueda avanzada (339–351)
+
+339  Operadores de búsqueda avanzados
+340  AND
+341  OR
+342  NOT
+343  Búsqueda por tipo
+344  Búsqueda por estado
+345  Búsqueda por categoría
+346  Búsqueda por etiqueta
+347  Búsqueda por fecha
+348  Búsqueda por relaciones
+349  Criterios complejos combinables
+350  Búsquedas frecuentes guardadas
+351  Búsqueda rápida responsive/optimizada para móvil
+
+Validación:
+- npm test: 95/95 PASS
+- npm run test:phase28: 6/6 PASS
+- audit:phase28: PASS
+- typecheck: PASS

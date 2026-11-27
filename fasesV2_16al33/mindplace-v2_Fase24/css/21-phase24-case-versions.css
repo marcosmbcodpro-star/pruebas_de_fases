@@ -1,0 +1,11 @@
+/* Fase 24 — panel de versiones persistentes */
+.case-version-overlay{position:fixed;inset:0;z-index:2400;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(6,10,18,.78);backdrop-filter:blur(8px)}
+.case-version-overlay.hidden{display:none}
+.case-version-box{width:min(920px,96vw);max-height:min(86dvh,800px);overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:#121a29;color:#eef2f7;box-shadow:0 24px 80px rgba(0,0,0,.45)}
+.case-version-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.15rem;border-bottom:1px solid rgba(255,255,255,.09)}
+.case-version-head strong{font-size:1.05rem}.case-version-subtitle{display:block;font-size:.78rem;opacity:.62;margin-top:.2rem}.case-version-close{border:0;background:transparent;color:inherit;font-size:1.25rem;cursor:pointer}
+.case-version-toolbar{display:flex;gap:.6rem;flex-wrap:wrap;padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.case-version-toolbar button{border:1px solid rgba(255,255,255,.13);background:#1b2638;color:#fff;border-radius:10px;padding:.62rem .8rem;cursor:pointer}.case-version-toolbar button:hover{filter:brightness(1.08)}
+.case-version-list{overflow:auto;padding:.75rem;display:grid;gap:.7rem}
+.case-version-item{display:grid;gap:.65rem;padding:.85rem;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:#172132}.case-version-item__top{display:flex;justify-content:space-between;gap:1rem}.case-version-item__meta{font-size:.78rem;opacity:.62}.case-version-item__description{font-size:.9rem;opacity:.88}.case-version-item__actions{display:flex;gap:.5rem;flex-wrap:wrap}.case-version-item__actions button{border:1px solid rgba(255,255,255,.12);background:#202e42;color:#fff;border-radius:9px;padding:.45rem .65rem;cursor:pointer}.case-version-item__actions button.danger{background:#4b1f29}.case-version-empty{padding:1.2rem;text-align:center;opacity:.68}
+@media(max-width:640px){.case-version-overlay{padding:.45rem}.case-version-box{width:100%;max-height:94dvh;border-radius:16px}.case-version-head{padding:.85rem}.case-version-toolbar{position:sticky;top:0;z-index:1;background:#121a29}.case-version-item__top{display:grid;grid-template-columns:1fr}.case-version-item__actions button{flex:1 1 auto;min-height:42px}}

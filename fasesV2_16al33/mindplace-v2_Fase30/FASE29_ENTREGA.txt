@@ -1,0 +1,5 @@
+MINDPLACE — FASE 29
+
+La Fase 29 está completada. Se incorpora la paleta de comandos con Ctrl+K/Cmd+K, comandos contextuales, búsqueda, creación de tarjetas y conexiones, centrado, cambio de caso, exportación, copias y ajustes. El proyecto incluye pruebas y auditoría de fase.
+
+Validación: 97/97 pruebas PASS; typecheck PASS; auditorías Fase 25–29 PASS.

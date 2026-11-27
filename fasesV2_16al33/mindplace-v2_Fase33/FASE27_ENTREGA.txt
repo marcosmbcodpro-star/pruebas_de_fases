@@ -1,0 +1,21 @@
+MINDPLACE — FASE 27 COMPLETA
+
+Puntos implementados: 327–338.
+
+327 Consistencia del caso
+328 Tarjetas sin relaciones
+329 Conclusiones sin evidencias
+330 Evidencias sin contexto
+331 Relaciones potencialmente contradictorias
+332 Referencias rotas
+333 Posibles tarjetas duplicadas
+334 Posibles personas duplicadas
+335 Archivos sin tarjeta asociada
+336 Advertencias de calidad
+337 Resumen de problemas
+338 Revisión y navegación desde el diagnóstico
+
+Ruta: /fase-27
+Pruebas: tests/phase27-quality.test.mjs
+Auditoría: scripts/phase27-audit.mjs
+Documentación: docs/FASE27_FINAL.md

@@ -1,0 +1,55 @@
+  /* =========================
+     AYUDA INTEGRADA MÍNIMA
+     ========================= */
+  #helpToggle{
+    min-width:30px; width:30px; padding:6px 0; text-align:center;
+    font-size:13px; font-weight:800; border-radius:50%;
+  }
+  #helpPanel{
+    position:fixed; top:74px; right:18px; width:min(330px, calc(100vw - 24px));
+    max-height:min(72vh, 520px); overflow:auto; z-index:5210;
+    padding:12px 13px; background:rgba(28,19,10,.98);
+    border:1px solid var(--brass); border-radius:8px;
+    box-shadow:0 14px 30px rgba(0,0,0,.7); backdrop-filter:blur(4px);
+    color:#f1e8d8;
+  }
+  #helpPanel.hidden{ display:none !important; }
+  .help-head{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    margin-bottom:9px; font-family:var(--font-mono);
+    font-size:12px; text-transform:uppercase; letter-spacing:.7px;
+  }
+  .help-head button{
+    width:28px; height:28px; border:1px solid rgba(201,161,90,.55);
+    border-radius:5px; background:#3a2a1c; color:#fff; cursor:pointer; font-size:14px;
+  }
+  .help-section{ margin-top:10px; }
+  .help-label{
+    margin-bottom:5px; font-size:9px; font-weight:800; letter-spacing:.8px;
+    text-transform:uppercase; color:rgba(236,227,206,.7);
+  }
+  .help-grid{ display:grid; grid-template-columns:1fr 1fr; gap:4px 10px; }
+  .help-row{
+    display:flex; align-items:center; gap:7px; min-width:0;
+    font-family:var(--font-mono); font-size:9.5px; line-height:1.35; color:#efe5d4;
+  }
+  .help-key{
+    flex:0 0 auto; min-width:24px; padding:2px 5px; border:1px solid rgba(201,161,90,.28);
+    border-radius:4px; background:rgba(255,255,255,.05); text-align:center; color:var(--brass); font-weight:800;
+  }
+  .help-tip{
+    margin-top:4px; padding-top:8px; border-top:1px solid rgba(255,255,255,.08);
+    color:rgba(236,227,206,.68); font-size:9px; line-height:1.45;
+  }
+  @media (max-width:760px){
+    #helpPanel{ top:62px; right:8px; width:calc(100vw - 16px); max-height:70vh; }
+    #helpToggle{ min-width:30px; width:30px; }
+  }
+
+  #hint{
+    position:fixed; bottom:10px; left:50%; transform:translateX(-50%);
+    color: var(--ui-text-faint); font-size:11px; letter-spacing:.5px;
+    pointer-events:none; z-index:40;
+  }
+
+  svg#strings{ position:absolute; top:0; left:0; z-index:5; pointer-events:none; }

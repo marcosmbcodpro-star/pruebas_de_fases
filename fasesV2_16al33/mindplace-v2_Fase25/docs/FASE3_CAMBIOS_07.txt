@@ -1,0 +1,24 @@
+MindPlace — Fase 3 / Modularización 07
+
+Cambio principal:
+- Extraída la construcción del contenido interno de tarjetas desde app.js a card-content.js.
+- Se centralizan los builders de documento, evidencia, pista/tag, conclusión, caso, hipótesis, pregunta, nota, persona y foto.
+- También se movieron la construcción de conclusiones inline y su creación lógica.
+- app.js conserva la orquestación y recibe los builders mediante createCardContentBuilders().
+
+Arquitectura:
+- card-content.js recibe dependencias explícitas: estado/tienda actuales, persistencia, historial, render y utilidades.
+- El estado y la tienda se consultan mediante getters para evitar referencias obsoletas cuando se cambia o restaura un caso.
+- Se mantiene el setter de editSessionEl para preservar el foco de edición existente en etiquetas.
+
+Funcionalidad visible:
+- No se han cambiado intencionadamente estilos, clases, textos ni estructura visual de las tarjetas.
+- No se ha cambiado el formato de datos.
+
+Validación:
+- node --check OK en todos los archivos JavaScript.
+- Se verificó que las implementaciones antiguas de los builders ya no permanecen en app.js.
+- app.js queda en ~4558 líneas; card-content.js contiene la responsabilidad extraída (~1574 líneas).
+
+Siguiente bloque recomendado:
+- Continuar reduciendo responsabilidades de app.js, especialmente creación/edición de UI auxiliar y menús, antes de entrar en la consolidación final de los modelos/validadores.

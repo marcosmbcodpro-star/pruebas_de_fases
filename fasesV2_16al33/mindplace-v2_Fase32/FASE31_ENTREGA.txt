@@ -1,0 +1,13 @@
+FASE 31 — FUNCIONAMIENTO OFFLINE AVANZADO
+
+Implementación final 373–382.
+
+373–376: lectura/creación/edición offline sobre IndexedDB y adjuntos persistentes.
+377–378: cola offline persistente por caso, coalescida para evitar duplicados.
+379: detección automática de recuperación de conexión.
+380: motor flushQueue preparado para procesar cambios pendientes; adaptador sync configurable para la futura API de Fase 32.
+381: errores de sincronización conservan la cola y exponen estado de error.
+382: la aplicación sigue dependiendo de almacenamiento local para trabajar aunque el servidor no esté disponible.
+
+Se añadió soporte opcional de Background Sync ('mindplace-offline-sync').
+La sincronización servidor-real queda desacoplada mediante un adaptador inyectable; en Fase 32 ese adaptador queda conectado a la API sin bloquear el funcionamiento local.

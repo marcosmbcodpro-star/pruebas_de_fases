@@ -1,0 +1,158 @@
+/* MindPlace — Fase 20: teclado, formularios y edición móvil */
+
+:root{
+  --mp-keyboard-inset: 0px;
+  --mp-viewport-height: 100vh;
+}
+
+input, textarea, select, [contenteditable="true"]{
+  -webkit-user-select:text;
+  user-select:text;
+  -webkit-tap-highlight-color: transparent;
+}
+
+textarea{
+  max-height:48vh;
+}
+
+.mobile-editing-active{
+  scroll-margin-block: calc(var(--mp-keyboard-inset,0px) + 72px);
+  caret-color: currentColor;
+}
+
+.mobile-edit-toolbar{
+  position:fixed;
+  z-index:120000;
+  left:8px;
+  right:8px;
+  bottom:8px;
+  bottom:var(--mp-toolbar-bottom,8px);
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px;
+  border:1px solid rgba(0,0,0,.2);
+  border-radius:14px;
+  background:var(--card-cream,#f1ead9);
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  transform:translateY(120%);
+  opacity:0;
+  pointer-events:none;
+  transition:transform .18s ease, opacity .18s ease;
+}
+.mobile-edit-toolbar.show{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+.mobile-edit-toolbar-status{
+  flex:1;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:12px;
+  font-weight:700;
+}
+.mobile-edit-toolbar button{
+  min-height:40px;
+  min-width:66px;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid rgba(0,0,0,.18);
+  background:rgba(255,255,255,.65);
+  color:inherit;
+  font-weight:700;
+  touch-action:manipulation;
+}
+.mobile-edit-toolbar button:active{transform:translateY(1px)}
+.mobile-edit-toolbar button:disabled{opacity:.65}
+
+.mobile-quick-edit-btn,
+.mobile-quick-create-btn{
+  display:none;
+}
+
+.mobile-form-step-actions{
+  display:none;
+}
+
+@media (max-width: 820px){
+  body.mindplace-mobile-mode .mobile-quick-edit-btn,
+  body.mindplace-mobile-mode .mobile-quick-create-btn{
+    display:flex;
+  }
+
+  .mobile-quick-edit-btn,
+  .mobile-quick-create-btn{
+    position:absolute;
+    min-width:40px;
+    min-height:40px;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    border:1px solid rgba(0,0,0,.16);
+    background:rgba(255,255,255,.78);
+    color:inherit;
+    font-weight:800;
+    z-index:80;
+    touch-action:manipulation;
+  }
+
+  .mobile-quick-edit-btn{left:8px;bottom:8px}
+  .mobile-quick-create-btn{right:8px;bottom:8px}
+
+  #newCaseBox .mobile-form-step-actions{
+    display:flex;
+    gap:8px;
+    margin-top:8px;
+    margin-bottom:4px;
+  }
+  #newCaseBox .mobile-form-step-actions button{
+    flex:1;
+    min-height:44px;
+    touch-action:manipulation;
+  }
+  #newCaseBox .mobile-step-hidden{
+    display:none !important;
+  }
+
+  #newCaseBox input,
+  #newCaseBox textarea,
+  #newCaseBox select,
+  #edgeInspector input,
+  #edgeInspector select{
+    min-height:46px;
+    font-size:16px;
+  }
+  #newCaseBox textarea{min-height:120px}
+
+  #edgeInspector{
+    padding-bottom:calc(12px + var(--mp-keyboard-inset,0px));
+  }
+
+  .card input,
+  .card textarea,
+  .card select,
+  .card [contenteditable="true"]{
+    font-size:16px;
+    line-height:1.4;
+  }
+
+  .mobile-edit-toolbar{
+    padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));
+  }
+}
+
+@media (max-width: 520px){
+  .mobile-edit-toolbar-status{display:none}
+  .mobile-edit-toolbar button{flex:1;min-width:0}
+  .mobile-quick-edit-btn,
+  .mobile-quick-create-btn{min-width:44px;min-height:44px}
+  #newCaseBox{max-height:calc(var(--mp-viewport-height,100vh) - 24px);overflow:auto}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .mobile-edit-toolbar{transition:none}
+}

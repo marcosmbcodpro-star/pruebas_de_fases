@@ -1,0 +1,48 @@
+MINDPLACE — FASE 12 FINAL
+Gestión profesional de casos
+
+136. Dashboard de casos/proyectos
+- El dashboard muestra proyectos activos, abiertos, en curso, resueltos, contenido total y elementos en papelera.
+- Se actualiza al volver al archivo y después de operaciones relevantes.
+
+137. Estado del proyecto
+- El estado es visible en las tarjetas del archivo y en la vista del caso mediante el indicador de estado.
+- El dashboard resume los estados de todos los proyectos activos.
+
+138. Información relevante del caso
+- Cada proyecto muestra título, descripción, estado, categoría, fecha de actualización y métricas de tarjetas, conexiones y adjuntos.
+
+139. Clasificación y organización de proyectos
+- Se conserva clasificación por categorías.
+- Se dispone de filtros por categoría, ordenación por fecha, nombre y estado y posibilidad de fijar proyectos.
+- La navegación anterior/siguiente usa un orden estable mientras el usuario recorre los proyectos.
+
+140. Historial de cambios importantes del proyecto
+- Cada proyecto dispone de un historial persistente de actividad separado del sistema de puntos de control/Undo/Redo.
+- Se registran creación, edición de metadatos, adición/eliminación de elementos, creación de relaciones, importación, papelera y restauración.
+
+141. Trazabilidad de modificaciones
+- La actividad queda vinculada al proyecto y conserva fecha, acción y resumen.
+- Las operaciones relevantes realizadas desde el dashboard y desde el tablero generan eventos.
+
+142. Historial del proyecto vs Undo/Redo
+- Quedan separados físicamente en el modelo:
+  activity = trazabilidad persistente del proyecto.
+  history = puntos de control del caso y mecanismo persistente usado por el gestor de historial.
+  undo/redo = pilas de sesión independientes gestionadas por history-manager.
+- Se añadió migración compatible para separar datos antiguos que mezclaban actividad y puntos de control.
+
+143. Navegación entre proyectos
+- Se añadieron botones de proyecto anterior/siguiente.
+- Solo navega entre proyectos activos, excluyendo los de papelera.
+- La secuencia se captura al entrar en un caso y no se reordena por cambios de updatedAt durante la navegación, evitando repeticiones y saltos.
+- Cambiar el criterio de ordenación reinicia correctamente la secuencia.
+- La posición anterior/siguiente se recalcula al abrir un caso y se desactiva correctamente en los extremos.
+
+Validación final de Fase 12
+- Todos los archivos JavaScript pasan node --check.
+- Modelo Case ampliado con activity y validación/persistencia de activity.
+- Migración compatible con datos históricos que usaban history para actividad.
+- Controles HTML del dashboard, actividad y navegación presentes.
+- Prueba lógica de creación de caso, separación activity/history y navegación estable validada.
+- Fase 12 considerada FINALIZADA a nivel de código y estructura.

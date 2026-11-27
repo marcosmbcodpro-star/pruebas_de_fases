@@ -1,0 +1,14 @@
+FASE 3 — MODULARIZACIÓN 09
+
+Cambios realizados:
+- Creado case-editor.js para centralizar la interfaz de creación/edición de casos.
+- Extraídas las funciones openNewCaseModal, openEditCaseModal y closeNewCaseModal.
+- Extraída la gestión de aceptación del formulario (crear/editar), incluidos Enter, cierre y foco.
+- app.js conserva la lógica de dominio updateCaseMeta/createCase y solo proporciona dependencias al módulo.
+- Se usan dependencias inyectadas para evitar acoplamiento directo con el estado global.
+- No se han modificado HTML, CSS, clases visuales ni el formato de datos.
+
+Validación:
+- node --check ejecutado correctamente en todos los archivos JavaScript.
+- Las funciones antiguas de edición de casos ya no están definidas en app.js.
+- app.js: 4199 líneas.

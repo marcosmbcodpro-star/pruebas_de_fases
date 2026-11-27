@@ -1,0 +1,38 @@
+MINDPLACE — FASE 23 COMPLETA
+=============================
+
+Puntos implementados: 287–296
+
+287. Indicador visual permanente del estado de guardado.
+288. Estados: Guardado, Guardando, Cambios pendientes y Error.
+289. Autosave inteligente con debounce.
+290. Confirmación interna del guardado mediante lectura posterior.
+291. Protección frente a cierre/abandono mediante borrador temporal de sesión.
+292. Recuperación automática del trabajo interrumpido.
+293. Recuperación después de errores inesperados mediante draft + last-good existentes.
+294. Registro del último estado de guardado para diagnóstico.
+295. Detección y representación de cambios pendientes.
+296. Recuperación de estados temporales de la interfaz móvil.
+
+Archivos principales nuevos/modificados:
+- js/core/save-state.js
+- js/core/persistence.js
+- js/app.js
+- css/20-phase23-save-recovery.css
+- index_mejoras.html
+- tests/phase23-save-recovery.test.mjs
+- scripts/phase23-audit.mjs
+- docs/FASE23_FINAL.md
+- README.md
+- package.json
+
+Validación realizada:
+- npm test -> 65/65 PASS
+- npm run test:phase23 -> 7/7 PASS
+- phase23-audit -> PASS
+- node --check js/core/save-state.js -> PASS
+- node --check js/core/persistence.js -> PASS
+- node --check js/app.js -> PASS
+
+Nota:
+La ejecución de npm run typecheck no pudo completarse en este entorno porque la entrega no incluye node_modules y npm install agotó el límite de ejecución. En Windows, ejecutar npm install y después npm run typecheck y npm run build.

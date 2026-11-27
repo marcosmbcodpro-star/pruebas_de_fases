@@ -1,0 +1,210 @@
+  /* Modo tablero limpio: deja el tablero visualmente despejado para pensar. */
+  #cleanModeToggle{
+    position:fixed; left:18px; bottom:18px; z-index:1400;
+    display:none;
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700;
+    letter-spacing:.4px;
+    color:var(--ink); background:var(--card-cream);
+    border:1px solid rgba(0,0,0,.32); border-radius:4px;
+    padding:8px 11px; cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.48);
+  }
+  #cleanModeToggle.is-visible{ display:block; }
+  #cleanModeToggle:hover{ filter:brightness(1.05); }
+  #cleanModeToggle:active{ transform:translateY(1px); }
+
+  /* En modo limpio se conservan las tarjetas, sus colores y las conexiones,
+     pero desaparecen controles y metadatos secundarios. */
+  body.clean-mode #topbar,
+  body.clean-mode #historyPanel,
+  body.clean-mode #topbarToggle,
+  body.clean-mode #miniMap,
+  body.clean-mode #farPreview,
+  body.clean-mode #hint{ display:none !important; }
+
+  body.clean-mode .card .del,
+  body.clean-mode .card .plus-btn,
+  body.clean-mode .card .edit-case,
+  body.clean-mode .card .case-link-open,
+  body.clean-mode .card .status-badge,
+  body.clean-mode .card .q-tags-row,
+  body.clean-mode .card .h-tags-row,
+  body.clean-mode .card .c-tags-row,
+  body.clean-mode .card .note-footer,
+  body.clean-mode .card .t-footer,
+  body.clean-mode .card .e-footer,
+  body.clean-mode .card .q-footer,
+  body.clean-mode .card .h-footer,
+  body.clean-mode .card .c-footer,
+  body.clean-mode .card .case-link-footer,
+  body.clean-mode .card .tag-conclusion,
+  body.clean-mode .card .inline-conclusion,
+  body.clean-mode .card .photo-caption,
+  body.clean-mode .card .doc-box,
+  body.clean-mode .card .person-avatar,
+  body.clean-mode .card .photo-box{ display:none !important; }
+
+  body.clean-mode .card .note-head,
+  body.clean-mode .card .h-head,
+  body.clean-mode .card .c-head,
+  body.clean-mode .card .t-head,
+  body.clean-mode .card .e-head,
+  body.clean-mode .card .d-head,
+  body.clean-mode .card .q-head,
+  body.clean-mode .card .case-link-head{
+    display:none !important;
+  }
+
+  body.clean-mode .card .card-content{
+    overflow:visible !important;
+    max-height:none !important;
+  }
+
+  body.clean-mode .card .text,
+  body.clean-mode .card .q-title,
+  body.clean-mode .card .marker-title,
+  body.clean-mode .card .marker-desc,
+  body.clean-mode .card .case-link-title,
+  body.clean-mode .card .case-link-desc,
+  body.clean-mode .card .doc-filename{
+    display:block !important;
+    margin:0 !important;
+  }
+
+  body.clean-mode .card .q-title{
+    padding-left:0 !important;
+    border-left:none !important;
+    margin-top:0 !important;
+  }
+
+  body.clean-mode .card{
+    transition:filter .18s ease, opacity .18s ease, box-shadow .18s ease;
+    cursor:grab !important;
+  }
+
+  /* En el modo tablero limpio la tarjeta completa se puede arrastrar.
+     El contenido visible deja pasar el puntero a la tarjeta para que no
+     se quede bloqueado por elementos internos con pointerdown propio. */
+  body.clean-mode .card .card-content{
+    pointer-events:none !important;
+    user-select:none !important;
+  }
+  /* Capa transparente de arrastre: garantiza que cualquier etiqueta,
+     incluida Pregunta, pueda moverse en modo tablero limpio. */
+  .clean-drag-overlay{
+    display:none;
+    position:absolute;
+    inset:0;
+    z-index:20;
+    cursor:grab;
+    background:transparent;
+  }
+  body.clean-mode .card .clean-drag-overlay{
+    display:block;
+  }
+  /* El redimensionado sigue disponible también en modo tablero limpio. */
+  body.clean-mode .card .resize-handle{
+    display:flex !important;
+    pointer-events:auto !important;
+    z-index:1001 !important;
+  }
+  body.clean-mode .card.dragging,
+  body.clean-mode .card.dragging .clean-drag-overlay{
+    cursor:grabbing !important;
+  }
+
+  body.clean-mode #strings{
+    opacity:1 !important;
+  }
+
+  #topbarToggle:active{ transform:translateY(1px); }
+  #topbarToggle.is-visible{ display:block; }
+
+  #backToMenu{
+    background:#3a3a3a; color:#e8e2d0;
+  }
+
+  #confirmOverlay{
+    position:fixed; inset:0; z-index:10001;
+    background:rgba(8,4,1,.7);
+    display:flex; align-items:center; justify-content:center;
+  }
+  #confirmBox{
+    background:var(--card-cream);
+    color:var(--ink);
+    font-family:'Kalam',cursive;
+    font-size:16px;
+    width:280px;
+    padding:20px 20px 16px;
+    box-shadow:0 14px 30px rgba(0,0,0,.6);
+    transform:rotate(-.6deg);
+  }
+  #confirmBox .msg{ margin-bottom:16px; line-height:1.4; }
+  #confirmBox .actions{ display:flex; gap:8px; justify-content:flex-end; }
+  #confirmBox button{
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
+    padding:7px 12px; border-radius:2px; cursor:pointer; border:1px solid rgba(0,0,0,.3);
+    box-shadow:0 2px 0 rgba(0,0,0,.4);
+  }
+  #confirmBox .yes{ background:var(--string-red); color:#fff; }
+  #confirmBox .no{ background:#e8e2d0; color:var(--ink); }
+
+  #newCaseOverlay{
+    position:fixed; inset:0; z-index:500;
+    background:rgba(8,4,1,.75);
+    display:flex; align-items:center; justify-content:center;
+  }
+  #newCaseBox{
+    background:var(--card-cream);
+    background-image:linear-gradient(var(--card-cream-2) 1px, transparent 1px);
+    background-size:100% 22px;
+    color:var(--ink);
+    width:320px;
+    padding:22px 22px 18px;
+    box-shadow:0 16px 34px rgba(0,0,0,.65);
+    transform:rotate(-.4deg);
+    position:relative;
+  }
+  #newCaseBox .pin{ left:50%; top:-5px; transform:translateX(-50%); }
+  #newCaseBox h2{
+    font-family:'Special Elite',monospace;
+    font-size:16px; letter-spacing:1.5px; text-transform:uppercase;
+    margin:6px 0 16px; color:var(--ink);
+  }
+  #newCaseBox label{
+    display:block; font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:1px; text-transform:uppercase;
+    opacity:.55; margin-bottom:4px;
+  }
+  #newCaseBox .field{ margin-bottom:14px; }
+  #newCaseBox input[type=text], #newCaseBox textarea, #newCaseBox select{
+    width:100%; font-family:'Kalam',cursive; font-size:15px;
+    background:transparent; border:none; border-bottom:1px dashed rgba(36,28,20,.35);
+    outline:none; padding:2px 2px 4px; resize:none; color:var(--ink);
+  }
+  #newCaseBox textarea{ height:52px; }
+  #newCaseBox select{ font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer; }
+  #newCaseBox .actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:6px; }
+  #newCaseBox button{
+    font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
+    padding:7px 12px; border-radius:2px; cursor:pointer; border:1px solid rgba(0,0,0,.3);
+    box-shadow:0 2px 0 rgba(0,0,0,.4);
+  }
+  #newCaseBox .accept{ background:var(--tag-teal); color:#fff; }
+  #newCaseBox .cancel{ background:#e8e2d0; color:var(--ink); }
+
+  .status-badge{
+    display:inline-block; font-family:'JetBrains Mono',monospace;
+    font-size:9px; letter-spacing:1px; text-transform:uppercase;
+    padding:2px 6px; border-radius:2px; color:#fff;
+  }
+  #caseStatusBadge{ cursor:pointer; }
+  .status-abierto{ background:var(--string-red); }
+  .status-curso{ background:var(--sticky-yellow-dark); }
+  .status-resuelto{ background:var(--tag-teal-dark); }
+
+  #caseDescBar{
+    font-family:'Kalam',cursive; font-size:12px; color: var(--ui-text-soft);
+    max-width:340px; line-height:1.3; padding-top:2px;
+  }
+

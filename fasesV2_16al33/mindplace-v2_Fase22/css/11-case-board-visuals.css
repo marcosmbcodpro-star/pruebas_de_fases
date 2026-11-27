@@ -1,0 +1,125 @@
+  /* Tablero dentro de un caso: notas de papel planas, chinchetas oscuras, hilos finos */
+  body.theme-allanwake2 .card{
+    border-radius:1px;
+    box-shadow:0 6px 10px rgba(0,0,0,.55);
+    background:#dcd6c6;
+    background-image:none;
+    border:none;
+  }
+  body.theme-allanwake2 .card .pin{
+    width:6px; height:6px;
+    background:radial-gradient(circle at 35% 30%, #4a4a4a, #111 70%);
+    box-shadow:0 1px 2px rgba(0,0,0,.6);
+    top:-3px;
+  }
+  body.theme-allanwake2 .card .label{
+    font-size:8px; letter-spacing:.5px; opacity:.55; color:#3a3428; margin-bottom:3px;
+  }
+  body.theme-allanwake2 .card.note .label{
+    font-size:7px; letter-spacing:.35px; white-space:nowrap; opacity:.55;
+  }
+  body.theme-allanwake2 .card .text{
+    font-family:'JetBrains Mono',monospace; font-size:11px; line-height:1.35;
+    color:#2a2620;
+  }
+  body.theme-allanwake2 .card.hypothesis{
+    background:#e0a542; border:none; box-shadow:0 6px 10px rgba(0,0,0,.55);
+  }
+  body.theme-allanwake2 .card.hypothesis .text,
+  body.theme-allanwake2 .card.hypothesis .label{ color:#2a1c05; }
+  body.theme-allanwake2 .card.question{
+    background:#ebe8df;
+    border:1px solid #6a4592;
+    color:#29242f;
+  }
+  body.theme-allanwake2 .card.question .q-head{
+    background:linear-gradient(180deg, #d8cae4, #c9b5dc);
+    color:#513276;
+    border-bottom:1px solid rgba(83,52,119,.4);
+  }
+  body.theme-allanwake2 .card.question .text,
+  body.theme-allanwake2 .card.question .q-title,
+  body.theme-allanwake2 .card.question .label{ color:#29242f; }
+  body.theme-allanwake2 .card.conclusion{
+    background:#cdd6c4; border:none; color:#232a1e;
+  }
+  body.theme-allanwake2 .card.conclusion .text,
+  body.theme-allanwake2 .card.conclusion .label{ color:#232a1e; }
+  body.theme-allanwake2 .card.tag,
+  body.theme-allanwake2 .card.evidence{ background:#d7d2c2; border:none; }
+  body.theme-allanwake2 .card.question,
+  body.theme-allanwake2 .card.hypothesis,
+  body.theme-allanwake2 .card.tag,
+  body.theme-allanwake2 .card.evidence{ transform:rotate(-.6deg); }
+  body.theme-allanwake2 .card.case-marker{
+    background:linear-gradient(155deg, #2b2013, #1b140b);
+    border:1px solid rgba(201,161,90,.4);
+  }
+  body.theme-allanwake2 .photo-box{
+    border:3px solid #d8d4c8;
+    background:#0a0a0a;
+    box-shadow:0 6px 10px rgba(0,0,0,.55);
+  }
+  body.theme-allanwake2 .photo-caption{ font-size:10px; color:#2a2620; }
+  body.theme-allanwake2 .person-avatar{ border-color:#d8d4c8; }
+  body.theme-allanwake2 .doc-box{
+    background:#dcd6c6; border:1px solid rgba(0,0,0,.15); color:#2a2620;
+  }
+  body.theme-allanwake2 .string-path{
+    stroke:rgba(235,232,222,.6); stroke-width:1px;
+    filter:none;
+  }
+  body.theme-allanwake2 .string-hit:hover + .string-path{
+    stroke:rgba(255,255,255,.85); stroke-width:1.4px;
+  }
+
+
+
+
+
+
+/* FASE 5 — navegación, organización y bloqueo */
+.board-nav-menu{
+  position:fixed;
+  z-index:10020;
+  min-width:240px;
+  max-height:min(72vh,620px);
+  overflow:auto;
+  padding:8px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;
+  background:rgba(28,22,18,.97);
+  box-shadow:0 18px 50px rgba(0,0,0,.42);
+}
+.board-nav-menu.hidden{display:none}
+.board-nav-menu button{
+  display:block;
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:inherit;
+  padding:8px 10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.board-nav-menu button:hover,.board-nav-menu button:focus-visible{background:rgba(255,255,255,.08);outline:none}
+.board-nav-section{padding:6px 10px 4px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+.board-nav-divider{height:1px;background:rgba(255,255,255,.09);margin:6px 4px}
+.card.is-locked{box-shadow:0 0 0 2px rgba(205,166,82,.42),0 8px 24px rgba(0,0,0,.18)}
+.card.is-locked .pin{opacity:.8}
+.card-lock-btn{
+  position:absolute;
+  right:31px;
+  top:8px;
+  z-index:7;
+  width:24px;
+  height:24px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.18);
+  cursor:pointer;
+}
+.card-lock-btn.is-locked{background:rgba(195,149,61,.26)}
+.card-lock-btn:focus-visible{outline:2px solid currentColor;outline-offset:2px}

@@ -1,0 +1,37 @@
+MindPlace — FASE 11 — Diagnóstico y mantenimiento
+
+122. Panel de diagnóstico básico
+- Nuevo panel local de diagnóstico accesible desde el tablero.
+- El panel permite actualizar el análisis y limpiar el registro de errores.
+
+123-129. Indicadores
+- Número de casos.
+- Número de tarjetas.
+- Número de conexiones.
+- Número de adjuntos.
+- Último guardado registrado en la sesión.
+- Versión de aplicación, datos y almacenamiento.
+- Disponibilidad de recuperación interna y último estado válido.
+
+130. Errores importantes
+- Registro local de errores JavaScript y promesas rechazadas no controladas.
+- Contexto básico: mensaje, archivo, línea y columna cuando el navegador lo proporciona.
+
+131-133. Integridad estructural
+- Detecta casos inválidos.
+- Detecta referencias rotas entre conexiones y tarjetas.
+- Detecta conexiones con nodos inexistentes.
+
+132. Archivos faltantes
+- Comprueba que los metadatos de adjuntos apuntan a registros existentes en IndexedDB.
+
+134. Listeners duplicados
+- Auditoría de listeners registrados por la aplicación.
+- Detecta la misma función registrada más de una vez sobre el mismo destino, evento y captura.
+
+135. Renderizados anómalos
+- Registra número de renderizados.
+- Mide duración del último render.
+- Detecta renders especialmente lentos o repetidos sin cambios de firma.
+
+La herramienta es local y no transmite información fuera de MindPlace.

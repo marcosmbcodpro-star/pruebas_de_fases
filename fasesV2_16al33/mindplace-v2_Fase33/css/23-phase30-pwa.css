@@ -1,0 +1,8 @@
+/* Fase 30 — pantalla de carga del shell PWA */
+#pwa-loading{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#0b1120;color:#e8eef6;font:600 14px/1.4 system-ui,sans-serif;transition:opacity .18s ease,visibility .18s ease}
+#pwa-loading.is-ready{opacity:0;visibility:hidden;pointer-events:none}
+#pwa-loading .pwa-loading-card{display:grid;justify-items:center;gap:12px;padding:24px;border:1px solid #263751;border-radius:18px;background:#111b2c;box-shadow:0 18px 60px rgba(0,0,0,.35)}
+#pwa-loading .pwa-loading-mark{width:42px;height:42px;border-radius:12px;background:#17263a;display:grid;place-items:center}
+#pwa-loading .pwa-loading-mark::after{content:'';width:18px;height:18px;border:3px solid #9fb2cb;border-top-color:transparent;border-radius:50%;animation:mindplace-pwa-spin .8s linear infinite}
+#pwa-loading .pwa-loading-text{color:#95a5bb}
+@keyframes mindplace-pwa-spin{to{transform:rotate(360deg)}}

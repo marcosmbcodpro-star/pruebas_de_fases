@@ -1,0 +1,21 @@
+FASE 33 — COLABORACIÓN FUTURA
+
+395–396: compartir casos por email y definir permisos por caso.
+397–398: modo lectura y edición reforzados en backend.
+399: colaboración simultánea preparada sobre el versionado optimista de Fase 32.
+400: presencia temporal de usuarios conectados.
+401: registro de cambios del caso y acciones de colaboración por usuario.
+402: conflictos colaborativos reutilizan SYNC_CONFLICT y la resolución de Fase 32.
+403: historial de colaboración independiente de Undo/Redo e historial de versiones.
+
+Nuevos endpoints:
+GET  /api/collaboration/cases/:id
+POST /api/collaboration/cases/:id/share
+PATCH /api/collaboration/cases/:id/members/:userId
+DELETE /api/collaboration/cases/:id/members/:userId
+GET  /api/collaboration/invitations
+POST /api/collaboration/invitations/:id/accept
+POST/GET/DELETE /api/collaboration/cases/:id/presence
+GET /api/collaboration/cases/:id/activity
+
+Nueva vista: /fase-33

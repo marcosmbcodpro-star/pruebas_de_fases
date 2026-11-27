@@ -1,0 +1,2 @@
+import { Module } from '@nestjs/common'; import { AuthModule } from '../auth/auth.module'; import { CollaborationModule } from '../collaboration/collaboration.module'; import { CasesController } from './cases.controller'; import { SyncController } from './sync.controller'; import { CasesService } from './cases.service';
+@Module({imports:[AuthModule,CollaborationModule],controllers:[CasesController,SyncController],providers:[CasesService],exports:[CasesService]}) export class CasesModule{}

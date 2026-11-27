@@ -1,0 +1,152 @@
+:root{
+    --wood-dark:#241609;
+    --wood-mid:#3c2515;
+    --wood-grain:rgba(0,0,0,.25);
+    --card-cream:#ece3ce;
+    --card-cream-2:#e2d6ba;
+    --sticky-yellow:#e3bb47;
+    --sticky-yellow-dark:#b8933a;
+    --question-blue:#6f8fbd;
+    --question-blue-dark:#4a678f;
+    --conclusion-green:#8fae6e;
+    --conclusion-green-dark:#5f7d45;
+    --tag-teal:#6f9384;
+    --tag-teal-dark:#4d6c60;
+    --string-red:#a3271d;
+    --ink:#241c14;
+    --brass:#c9a15a;
+    --evidence-gray:#c7cdd1;
+    --evidence-gray-dark:#8c959b;
+    --person-slate:#8fa3b8;
+    --person-slate-dark:#5c7288;
+    --lamp-glow:rgba(255,214,140,.16);
+    --paper-shadow:rgba(0,0,0,.55);
+
+    --ui-text-strong: var(--card-cream);
+    --marker-text: var(--card-cream);
+    --marker-text-soft: rgba(236,227,206,.88);
+    --ui-text-soft: rgba(236,227,206,.7);
+    --ui-text-faint: rgba(236,227,206,.5);
+    --topbar-gradient: linear-gradient(180deg, rgba(10,6,2,.92), rgba(10,6,2,.55) 80%, transparent);
+    --board-texture:
+      radial-gradient(ellipse 900px 600px at 12% 8%, var(--lamp-glow), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 88% 8%, var(--lamp-glow), transparent 60%),
+      repeating-linear-gradient(90deg, var(--wood-mid) 0px, var(--wood-mid) 38px, var(--wood-grain) 39px, var(--wood-mid) 40px),
+      linear-gradient(180deg, var(--wood-dark), var(--wood-mid));
+    --menu-texture:
+      radial-gradient(ellipse 900px 500px at 50% -10%, var(--lamp-glow), transparent 60%),
+      repeating-linear-gradient(90deg, var(--wood-mid) 0px, var(--wood-mid) 38px, var(--wood-grain) 39px, var(--wood-mid) 40px),
+      linear-gradient(180deg, var(--wood-dark), var(--wood-mid));
+    --vignette-strength: rgba(0,0,0,.65);
+  }
+
+  /* Tema Detective 2: madera más oscura, con más textura y grano visible, dossier y animaciones */
+  body.theme-detective2{
+    --wood-dark:#160d05;
+    --wood-mid:#2b190d;
+    --wood-grain:rgba(0,0,0,.4);
+    --brass:#b8935a;
+    --lamp-glow:rgba(255,196,120,.13);
+    --vignette-strength: rgba(0,0,0,.78);
+    --board-texture:
+      radial-gradient(ellipse 800px 550px at 15% 6%, var(--lamp-glow), transparent 62%),
+      radial-gradient(ellipse 800px 550px at 85% 6%, var(--lamp-glow), transparent 62%),
+      repeating-linear-gradient(90deg, var(--wood-mid) 0px, var(--wood-mid) 26px, var(--wood-grain) 27px, var(--wood-mid) 28px),
+      repeating-linear-gradient(0deg, transparent 0px, transparent 5px, rgba(0,0,0,.12) 6px),
+      linear-gradient(180deg, var(--wood-dark), var(--wood-mid));
+    --menu-texture: var(--board-texture);
+  }
+
+  /* Tema Futurista: panel oscuro tecnológico con acentos de neón */
+  body.theme-futuristic{
+    --wood-dark:#050912;
+    --wood-mid:#0b1830;
+    --wood-grain:rgba(0,229,255,.1);
+    --card-cream:#0f1e33;
+    --card-cream-2:rgba(255,255,255,.05);
+    --ink:#d8f6ff;
+    --string-red:#00e5ff;
+    --brass:#00d4f0;
+    --sticky-yellow:#241c08;
+    --sticky-yellow-dark:#ffcf4a;
+    --question-blue:#0a1c33;
+    --question-blue-dark:#5aa0ff;
+    --conclusion-green:#04241a;
+    --conclusion-green-dark:#3cffaa;
+    --paper-shadow:rgba(0,229,255,.2);
+    --marker-text:#eafcff;
+    --marker-text-soft:rgba(210,245,255,.85);
+    --ui-text-strong:#d8f6ff;
+    --ui-text-soft:rgba(216,246,255,.7);
+    --ui-text-faint:rgba(216,246,255,.45);
+    --topbar-gradient: linear-gradient(180deg, rgba(3,8,20,.92), rgba(3,8,20,.4) 80%, transparent);
+    --vignette-strength: rgba(0,0,0,.7);
+    --board-texture:
+      repeating-linear-gradient(90deg, rgba(0,229,255,.06) 0px, transparent 1px, transparent 39px, rgba(0,229,255,.06) 40px),
+      repeating-linear-gradient(0deg, rgba(0,229,255,.06) 0px, transparent 1px, transparent 39px, rgba(0,229,255,.06) 40px),
+      radial-gradient(ellipse 900px 500px at 50% 0%, rgba(0,229,255,.1), transparent 60%),
+      linear-gradient(180deg, var(--wood-dark), var(--wood-mid));
+    --menu-texture: var(--board-texture);
+  }
+  body.theme-futuristic .card{
+    border-radius:3px;
+    border:1px solid rgba(0,229,255,.35);
+    box-shadow:0 0 0 1px rgba(0,229,255,.12), 0 8px 18px var(--paper-shadow);
+  }
+  body.theme-futuristic .card.hypothesis{ border-color:rgba(255,207,74,.55); box-shadow:0 0 14px rgba(255,207,74,.35); }
+  body.theme-futuristic .card.question{ border-color:rgba(90,160,255,.55); box-shadow:0 0 14px rgba(90,160,255,.35); }
+  body.theme-futuristic .card.conclusion{ border-color:rgba(60,255,170,.55); box-shadow:0 0 14px rgba(60,255,170,.35); }
+  body.theme-futuristic .card.question,
+  body.theme-futuristic .card.hypothesis,
+  body.theme-futuristic .card.tag,
+  body.theme-futuristic .card.evidence{ transform:none; }
+  body.theme-futuristic .pin{
+    width:9px; height:9px; border-radius:50%;
+    background:radial-gradient(circle, #baf7ff, #00b8d4 60%, #036);
+    box-shadow:0 0 7px rgba(0,229,255,.85);
+  }
+  body.theme-futuristic .string-path{
+    stroke:#00e5ff; stroke-width:1.6px;
+    filter:drop-shadow(0 0 5px rgba(0,229,255,.8));
+  }
+  body.theme-futuristic .doc-box{ background:#0c1930; border:1px solid rgba(0,229,255,.35); color:#d8f6ff; }
+  body.theme-futuristic .doc-icon{ color:#00e5ff; }
+  body.theme-futuristic .case-card{ box-shadow:0 0 0 1px rgba(0,229,255,.25), 0 10px 18px rgba(0,0,0,.5); }
+
+  @keyframes selectPulse{
+    0%{ transform:scale(1); }
+    45%{ transform:scale(1.045); }
+    100%{ transform:scale(1); }
+  }
+  @keyframes edgePulse{
+    0%{ stroke-width:2.2; filter:drop-shadow(0 0 0 rgba(163,39,29,0)); }
+    45%{ stroke-width:5; filter:drop-shadow(0 0 6px rgba(163,39,29,.9)); }
+    100%{ stroke-width:2.2; filter:drop-shadow(0 1px 1px rgba(0,0,0,.5)); }
+  }
+  body.theme-detective2 .card{ transition: box-shadow .15s ease, transform .2s ease; }
+  body.theme-detective2 .card.linking-src{ animation: selectPulse .55s ease; }
+  body.theme-detective2 .string-path.new-edge{ animation: edgePulse .8s ease; }
+
+  body.theme-detective2 .doc-box{
+    background:#c9b283;
+    border:1px solid #96805a;
+    border-radius:2px;
+    position:relative;
+    color:#2c2013;
+  }
+  body.theme-detective2 .doc-box::before{
+    content:"";
+    position:absolute; top:-8px; left:14px;
+    width:38px; height:8px;
+    background:#c9b283;
+    border:1px solid #96805a;
+    border-bottom:none;
+    border-radius:2px 2px 0 0;
+  }
+  body.theme-detective2 .doc-filename{ color:#2c2013; }
+  body.theme-detective2 .doc-icon{ color:#6b5a3a; }
+  body.theme-detective2 .case-card{
+    box-shadow:0 12px 22px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+
+  *{box-sizing:border-box;}

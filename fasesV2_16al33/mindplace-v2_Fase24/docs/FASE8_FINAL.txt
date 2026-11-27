@@ -1,0 +1,21 @@
+FASE 8 — DATOS Y ARCHIVOS
+
+68. Evaluación técnica de migración localStorage → IndexedDB: justificada por el uso de fotografías y documentos, capacidad superior y separación entre datos estructurados y binarios.
+69. IndexedDB implementado como almacenamiento principal, con migración automática del espacio legacy y fallback para datos estructurados cuando IndexedDB no está disponible.
+70. Datos estructurados y archivos separados: el store JSON conserva metadatos; los blobs viven en el object store attachments.
+71. Modelo Attachment consolidado y utilizado por documentos e imágenes.
+72-73. Metadatos: nombre, tipo MIME, tamaño, fecha, extensión, caso/origen y SHA-256 cuando Web Crypto está disponible.
+74. Vista previa de documentos mediante apertura en nueva pestaña y vista previa de imágenes mediante Object URLs.
+75. Sustitución de adjuntos elimina primero el anterior y registra el nuevo.
+76. Descarga de adjuntos mediante Object URLs.
+77. Eliminación segura de adjuntos y limpieza al eliminar tarjetas.
+78. Gestión de fotografías separada del JSON; las imágenes se redimensionan para la vista y se almacenan como Blob.
+79. Gestión de documentos separada del JSON; se almacenan como Blob con metadatos.
+80. Integridad: límite por archivo de 25 MB, validación estructural y comprobación SHA-256 al importar cuando está disponible.
+81. Importación/exportación de casos conserva sus adjuntos en el paquete JSON del caso.
+82. Exportación de caso y backup completo permanecen separados. El backup completo incluye todos los adjuntos, preferencias, historial, papelera y casos.
+
+Límites actuales:
+- 25 MB por archivo.
+- 10 adjuntos por tarjeta.
+- 150 MB como límite de exportación de adjuntos de una copia.

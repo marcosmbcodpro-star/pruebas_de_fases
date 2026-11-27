@@ -1,0 +1,38 @@
+MindPlace — FASE 9 FINAL
+
+Mejoras 83–105 completadas:
+
+83. Responsive completo: base adaptativa para menú, tablero, barra superior, modales, búsqueda, filtros y estructura.
+84. Móvil vertical: tarjetas de caso a una columna, controles ampliados y formularios adaptados.
+85. Móvil horizontal: distribución a dos columnas y mayor espacio vertical para el tablero/toolbar.
+86. Tablet vertical: grid de casos y controles preparados para anchos intermedios.
+87. Tablet horizontal: toolbar flexible y overlays con altura segura.
+88. Escritorio/pantallas grandes: conserva el lienzo amplio y el layout completo.
+89. Toque: controles y botones usan touch-action: manipulation y targets táctiles mayores cuando corresponden.
+90. Arrastre táctil: se conserva Pointer Events y requestAnimationFrame del tablero/tarjetas.
+91. Zoom táctil: mantiene el zoom existente y añade interacción táctil coherente.
+92. Pinch zoom: añadido sobre el lienzo del tablero con dos puntos táctiles, manteniendo el centro del gesto.
+93. Selección táctil: la selección de tarjetas/conexiones sigue separada de los controles internos.
+94. Menús táctiles: menús y paneles tienen scrolling interno y límites de altura del viewport dinámico.
+95. Botones/controles táctiles: targets mínimos y tap highlight neutralizado en controles principales.
+96. Scroll: overscroll-behavior y soporte de scroll táctil en tablero, menús y overlays.
+97. Pulsación larga: sobre una tarjeta táctil selecciona y centra la tarjeta como acceso rápido.
+98. Doble toque: sobre una zona vacía del tablero centra el tablero completo.
+99. Teclado virtual: inputs/textarea/select y contenteditable se ajustan a 16px en móvil para evitar zoom automático en iOS.
+100. Orientación: resize/orientationchange/visualViewport actualizan el viewport dinámico y redibujan minimapa/conexiones.
+101. Safe areas: uso de env(safe-area-inset-*) para toolbar, menú y controles flotantes.
+102. Overlays: alturas máximas basadas en 100dvh y espacios seguros para que no queden cortados.
+103. Archivos/fotos/cámara: se mantienen inputs nativos de archivo e imágenes del navegador y su almacenamiento separado en IndexedDB.
+104. Permisos/selección/vista previa: se conserva el flujo nativo de selección y vista previa existente, con límites y validación de archivos.
+105. Rendimiento en pocos recursos: el responsive evita reconstrucciones adicionales, usa requestAnimationFrame donde ya existía y añade contain:layout style a tarjetas para reducir coste de layout sin recortar sombras/overflows.
+
+Cambios funcionales de esta fase:
+- Nuevo pinch zoom táctil en el lienzo.
+- Doble toque táctil sobre zona vacía -> centrar todo el tablero.
+- Pulsación larga sobre tarjeta -> seleccionar y centrar.
+- Viewport dinámico con 100dvh y visualViewport.
+- Safe areas para dispositivos con notch/áreas de sistema.
+- Ajustes específicos para móvil portrait/landscape, tablet y desktop.
+- Respeto de prefers-reduced-motion.
+
+No se ha eliminado la compatibilidad con los datos de fases anteriores.

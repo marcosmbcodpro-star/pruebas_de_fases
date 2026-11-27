@@ -1,0 +1,23 @@
+FASE 32 — BACKEND Y SINCRONIZACIÓN MULTIDISPOSITIVO
+
+383: API REST base en NestJS/Node.js.
+384: autenticación de usuarios con JWT y hash de contraseña mediante scrypt.
+385: sincronización optimista por caso y número de versión.
+386–387: backend Node.js con NestJS.
+388: REST para usuarios, casos y sincronización push/pull.
+389–390: cliente sincroniza casos entre PC, tablet y móvil usando el mismo usuario.
+391: detección de modificaciones simultáneas mediante baseVersion.
+392–393: conflictos se conservan, se muestran y permiten conservar servidor o versión local.
+394: modo local-first: IndexedDB sigue siendo operativo si API/servidor no está disponible.
+
+El servidor usa JSON persistente en server/data para facilitar ejecución local y pruebas.
+En producción se debe sustituir el repositorio por una base de datos y definir MINDPLACE_JWT_SECRET.
+
+
+Cierre Fase 32:
+- Backend queda preparado para arrancar con validación NestJS correctamente declarada (`class-validator` + `class-transformer`); tras instalar dependencias, `npm run build` compila el servidor.
+- API cliente normalizada a `/api` para evitar dependencias en `localhost` entre dispositivos.
+- Vite expone el desarrollo en LAN y hace proxy de `/api` hacia el backend.
+- Añadido endpoint de salud y pruebas HTTP reales de autenticación, casos, pull, conflicto y resolución.
+- Persistencia del servidor usa escritura atómica para reducir el riesgo de archivos JSON parcialmente escritos.
+- FASE 32 — ✅ COMPLETADA (383–394).

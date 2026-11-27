@@ -1,0 +1,23 @@
+FASE 10 — ACCESIBILIDAD Y SEGURIDAD
+
+106 Contraste y legibilidad: reforzado el contraste de foco, textos de interfaz y controles.
+107 Foco visible: foco de teclado unificado con :focus-visible.
+108 Navegación sin ratón: controles principales tienen elementos nativos, estados ARIA y retorno de foco en cierres.
+109 Tamaños táctiles: controles interactivos tienen altura mínima en pointer:coarse.
+110 aria-label: revisados controles dinámicos y entradas de archivos.
+111 aria-expanded/aria-hidden: menús y paneles mantienen estados coherentes con inert.
+112 reduced motion: se conserva el modo prefers-reduced-motion.
+113 Sanitización HTML: contenido de usuario se inserta mediante textContent; se eliminó interpolación insegura del nombre de archivos.
+114 Contenido editable: los campos editables se leen como texto y se limitan en longitud antes de persistir.
+115 JSON importado: tamaño, estructura, límites y JSON válido se comprueban antes de incorporarlo.
+116 Archivos importados: tipo esperado, tamaño, nombre y metadatos se validan y normalizan.
+117 URLs/referencias externas: se permiten únicamente http/https/mailto/tel y se rechazan protocolos peligrosos.
+118 Nombres/extensiones: se normalizan para eliminar separadores de ruta y caracteres de control.
+119 Límite de tamaño: importaciones estructurales <= 200 MB; adjuntos individuales <= 25 MB; backups de adjuntos <= 150 MB.
+120 Límites razonables: hasta 500 casos, 2000 nodos por caso, 4000 conexiones, 500 entradas de historial y 10 adjuntos por nodo.
+121 Datos inválidos: validadores y normalización rechazan estructuras no válidas antes de incorporarlas al estado persistente.
+
+Se mantiene IndexedDB de la Fase 8 y la compatibilidad con datos antiguos.
+
+
+Corrección CSP posterior: se eliminó frame-ancestors del meta CSP porque solo es válido como cabecera HTTP, y se permitió unsafe-inline para compatibilidad con Live Server durante desarrollo. La aplicación no contiene scripts inline propios.

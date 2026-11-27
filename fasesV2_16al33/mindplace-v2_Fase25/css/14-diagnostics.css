@@ -1,0 +1,29 @@
+/* FASE 11 — Diagnóstico y mantenimiento */
+.diagnostics-panel{position:fixed;inset:0;z-index:1500;display:flex;align-items:flex-start;justify-content:center;padding:clamp(12px,4vh,36px) 14px;background:rgba(0,0,0,.46);backdrop-filter:blur(4px);}
+.diagnostics-panel.hidden{display:none;}
+.diagnostics-shell{width:min(760px,100%);max-height:min(88vh,820px);overflow:auto;border:1px solid var(--panel-border,rgba(255,255,255,.16));border-radius:16px;background:var(--panel-bg,rgba(20,20,24,.98));box-shadow:0 22px 70px rgba(0,0,0,.35);padding:18px;color:var(--text,#fff);}
+.diagnostics-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;position:sticky;top:0;background:inherit;padding-bottom:8px;z-index:2;}
+.diagnostics-head strong{display:block;font-size:18px;}
+.diagnostics-subtitle{display:block;margin-top:4px;opacity:.68;font-size:12px;}
+.diagnostics-head button{min-width:40px;min-height:40px;border:0;border-radius:10px;background:rgba(255,255,255,.08);color:inherit;cursor:pointer;}
+.diagnostics-summary{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.diag-status{display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(255,255,255,.08);}
+.diag-status.ok{background:rgba(60,180,90,.16);}
+.diag-status.warn{background:rgba(240,170,50,.18);}
+.diagnostics-section{padding:12px 0;border-top:1px solid rgba(255,255,255,.08);}
+.diagnostics-section h3{font-size:13px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.06em;opacity:.75;}
+.diagnostics-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
+.diag-row{display:flex;justify-content:space-between;gap:12px;padding:8px 10px;background:rgba(255,255,255,.045);border-radius:9px;font-size:12px;}
+.diag-row strong{text-align:right;overflow-wrap:anywhere;}
+.diag-issues{grid-column:1/-1;margin-top:4px;padding:10px;border-radius:10px;background:rgba(240,170,50,.10);font-size:12px;line-height:1.45;}
+.diag-issues strong{display:block;margin-bottom:4px;}
+.diagnostics-logs{display:grid;gap:6px;max-height:180px;overflow:auto;}
+.diag-log{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04);font-size:12px;}
+.diag-log.error{background:rgba(220,70,70,.11);}
+.diag-log time{opacity:.55;font-variant-numeric:tabular-nums;}
+.diag-empty{opacity:.58;font-size:12px;padding:8px 0;}
+.diagnostics-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.diagnostics-actions button{min-height:40px;padding:9px 12px;border:1px solid rgba(255,255,255,.12);border-radius:9px;background:rgba(255,255,255,.07);color:inherit;cursor:pointer;}
+.diagnostics-footnote{font-size:11px;opacity:.55;margin:12px 0 0;}
+@media (max-width:700px){.diagnostics-panel{padding:8px;align-items:stretch}.diagnostics-shell{max-height:100%;border-radius:12px;padding:14px}.diagnostics-details{grid-template-columns:1fr}.diag-issues{grid-column:auto}.diagnostics-actions button{flex:1 1 180px}.diagnostics-summary{gap:6px}.diag-status{flex:1 1 140px;justify-content:center}}
+@media (prefers-reduced-motion:reduce){.diagnostics-panel,.diagnostics-shell{scroll-behavior:auto;transition:none!important;animation:none!important}}

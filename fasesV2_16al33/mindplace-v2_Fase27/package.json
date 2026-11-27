@@ -1,0 +1,52 @@
+{
+  "name": "mindplace-solo-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:phase14": "node --test tests/phase14-core.test.mjs",
+    "test:browser": "node scripts/phase14-browser.mjs",
+    "test:phase15": "node --test tests/phase15-final.test.mjs && node scripts/phase15-audit.mjs",
+    "test:all": "npm test && npm run test:phase16 && npm run test:phase17 && npm run test:phase18 && npm run test:phase19 && npm run test:phase20 && npm run test:browser && npm run test:phase15 && npm run test:phase21 && npm run test:phase22 && npm run test:phase23 && npm run test:phase24 && npm run test:phase25 && npm run test:phase26 && npm run test:phase27",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "test:phase16": "node --test tests/phase16-architecture.test.mjs && node scripts/phase16-audit.mjs",
+    "start": "vite",
+    "audit:phase16": "node scripts/phase16-audit.mjs",
+    "test:phase17": "node --test tests/phase17-mobile.test.mjs && node scripts/phase17-audit.mjs",
+    "audit:phase17": "node scripts/phase17-audit.mjs",
+    "test:phase18": "node --test tests/phase18-mobile-board.test.mjs && node scripts/phase18-audit.mjs",
+    "audit:phase18": "node scripts/phase18-audit.mjs",
+    "test:phase19": "node --test tests/phase19-touch-gestures.test.mjs && node scripts/phase19-audit.mjs",
+    "test:phase20": "node --test tests/phase20-mobile-editing.test.mjs && node scripts/phase20-audit.mjs",
+    "audit:phase20": "node scripts/phase20-audit.mjs",
+    "audit:phase19": "node scripts/phase19-audit.mjs",
+    "test:phase21": "node --test tests/phase21-mobile-files.test.mjs && node scripts/phase21-audit.mjs",
+    "test:phase22": "node --test tests/phase22-mobile-research.test.mjs && node scripts/phase22-audit.mjs",
+    "audit:phase22": "node scripts/phase22-audit.mjs",
+    "audit:phase21": "node scripts/phase21-audit.mjs",
+    "test:phase23": "node --test tests/phase23-save-recovery.test.mjs && node scripts/phase23-audit.mjs",
+    "test:phase24": "node --test tests/phase24-case-versions.test.mjs && node scripts/phase24-audit.mjs",
+    "audit:phase24": "node scripts/phase24-audit.mjs",
+    "audit:phase23": "node scripts/phase23-audit.mjs",
+    "test:phase25": "node --experimental-strip-types --test tests/phase25-version-compare.test.mjs && node scripts/phase25-audit.mjs",
+    "test:phase26": "node --experimental-strip-types --test tests/phase26-graph.test.mjs && node scripts/phase26-audit.mjs",
+    "audit:phase25": "node scripts/phase25-audit.mjs",
+    "test:phase27": "node --experimental-strip-types --test tests/phase27-quality.test.mjs && node scripts/phase27-audit.mjs",
+    "audit:phase27": "node scripts/phase27-audit.mjs"
+  },
+  "dependencies": {
+    "pinia": "^3.0.0",
+    "vue": "^3.5.0",
+    "vue-router": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vite": "^7.0.0",
+    "vue-tsc": "^3.0.0",
+    "vitest": "^3.0.0",
+    "@vitejs/plugin-vue": "^6.0.0"
+  }
+}

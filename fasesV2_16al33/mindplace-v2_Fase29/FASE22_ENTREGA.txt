@@ -1,0 +1,65 @@
+MINDPLACE — FASE 22 COMPLETA
+============================
+
+Estado: COMPLETADA
+Puntos: 275–286
+
+NOVEDADES
+---------
+275  Modo investigación móvil con panel de captura rápida.
+276  Nueva evidencia.
+277  Nueva nota.
+278  Nueva persona.
+279  Nueva conexión.
+280  Adjuntar fotografía desde cámara/galería.
+281  Buscar desde investigación.
+282  Escanear/adjuntar documento mediante las capacidades del navegador.
+283  Captura rápida desde un único panel.
+284  Retorno rápido al punto anterior del caso.
+285  Conservación de caso, tarjeta y posición/zoom del tablero.
+286  Vista móvil centrada en captura rápida y contexto.
+
+ARCHIVOS PRINCIPALES
+--------------------
+js/mobile/mobile-research.js
+css/19-phase22-mobile-research.css
+scripts/phase22-audit.mjs
+tests/phase22-mobile-research.test.mjs
+docs/FASE22_FINAL.md
+src/views/Phase22View.vue
+
+VALIDACION REALIZADA EN ESTA ENTREGA
+------------------------------------
+npm test
+-> 58/58 PASS
+
+npm run test:phase22
+-> 6/6 PASS
+-> FASE 22 AUDIT: PASS
+
+npm run typecheck
+-> PASS
+
+npm run build
+-> el codigo llega al proceso de Rollup, pero este entorno Linux carece del paquete
+   opcional @rollup/rollup-linux-x64-gnu. En Windows, usar npm install y volver a
+   ejecutar npm run build.
+
+EN WINDOWS
+----------
+1. Descomprimir el proyecto.
+2. Abrir CMD/PowerShell en la carpeta raiz.
+3. Ejecutar: npm install
+4. Ejecutar: npm run typecheck
+5. Ejecutar: npm test
+6. Ejecutar: npm run test:phase22
+7. Ejecutar: npm run build
+8. Ejecutar: npm run dev
+
+RUTA DE LA VISTA DE DOCUMENTACION
+----------------------------------
+/fase-22
+
+SIGUIENTE FASE
+--------------
+FASE 23 — Guardado y recuperación avanzada (287–296)

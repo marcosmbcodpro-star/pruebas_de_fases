@@ -1,0 +1,11 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { router } from '../router';
+import CommandPalette from '../components/CommandPalette.vue';
+const palette = ref<InstanceType<typeof CommandPalette> | null>(null);
+onMounted(() => palette.value?.show());
+</script>
+<template>
+  <main class="phase29"><header><div><p>FASE 29 · 352–362</p><h1>Productividad y comandos</h1><span>Una paleta única para ejecutar acciones sin perder el contexto del caso.</span></div><div class="actions"><button @click="palette?.show()">Abrir paleta</button><button @click="router.push('/')">← Tablero</button></div></header><section class="grid"><article><strong>Ctrl + K</strong><span>Abre la paleta desde escritorio.</span></article><article><strong>Móvil</strong><span>La misma paleta se adapta a pantallas táctiles.</span></article><article><strong>Contextual</strong><span>Prioriza comandos disponibles según la vista actual.</span></article><article><strong>Acciones reales</strong><span>Crear, buscar, navegar, centrar, exportar y administrar usando el puente existente de MindPlace.</span></article></section><CommandPalette ref="palette" /></main>
+</template>
+<style scoped>.phase29{min-height:100dvh;box-sizing:border-box;padding:22px;color:#e8eef6;background:#0b1120;font:14px/1.45 Inter,system-ui,sans-serif}.phase29 header{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.phase29 p{font-size:11px;letter-spacing:.16em;color:#91a2bb;font-weight:800}.phase29 h1{margin:4px 0;font-size:clamp(28px,5vw,46px)}.phase29 header span{color:#9eabc0}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button{border:1px solid #33455d;background:#172237;color:#edf3fa;border-radius:10px;padding:10px 13px;font:inherit}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.grid article{display:grid;gap:7px;padding:18px;border:1px solid #25354b;background:#111b2c;border-radius:15px}.grid strong{font-size:15px}.grid span{color:#93a1b5}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.phase29{padding:14px 12px 80px}.phase29 header{flex-direction:column}.actions{width:100%}.actions button{flex:1}.grid{grid-template-columns:1fr}}</style>
