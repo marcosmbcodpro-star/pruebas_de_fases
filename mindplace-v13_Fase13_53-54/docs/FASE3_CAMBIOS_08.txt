@@ -1,0 +1,15 @@
+MindPlace — Fase 3 / Modularización 08
+
+Cambios:
+- Creado card-ui.js para centralizar la UI contextual de tarjetas y menús auxiliares.
+- Extraídos de app.js: addCaseLinkFrom, closeAllPlusMenus, listener de cierre del menú +, MIN_SIZES, addPlusButton, addConclusionStatusIcon, NODE_STATES/normalización, closeAllStatusMenus, addCardStateButton y addCardFavoriteButton.
+- card-ui.js recibe dependencias mediante createCardUiControls para reducir acoplamiento implícito.
+- El acceso al índice de casos del menú + se realiza mediante getStore(), evitando conservar referencias obsoletas del estado.
+- app.js continúa usando MIN_SIZES y las funciones del módulo mediante el resultado de la fábrica.
+- No se han modificado HTML ni CSS.
+
+Validación:
+- node --check app.js: OK
+- node --check card-ui.js: OK
+- No quedan definiciones duplicadas de las funciones extraídas en app.js.
+- Prueba HTTP estática realizada mediante servidor local + curl.

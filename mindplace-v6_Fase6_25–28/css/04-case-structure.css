@@ -1,0 +1,49 @@
+  /* =========================
+     ESTRUCTURA OPCIONAL DEL CASO
+     ========================= */
+  #caseStructurePanel{
+    position:fixed; top:74px; left:18px;
+    width:min(320px, calc(100vw - 24px));
+    max-height:min(76vh, 620px); overflow:auto; z-index:5185;
+    padding:12px; background:rgba(28,19,10,.98);
+    border:1px solid var(--brass); border-radius:8px;
+    box-shadow:0 14px 30px rgba(0,0,0,.72); backdrop-filter:blur(4px);
+    color:#f1e8d8;
+  }
+  #caseStructurePanel.hidden{ display:none !important; }
+  .case-structure-head{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    margin-bottom:10px; font-family:var(--font-mono);
+    font-size:12px; text-transform:uppercase; letter-spacing:.7px;
+    position:sticky; top:0; background:rgba(28,19,10,.98);
+    padding-bottom:8px; z-index:2;
+  }
+  .case-structure-head button{
+    width:32px; height:32px; border:1px solid rgba(201,161,90,.55);
+    border-radius:5px; background:#3a2a1c; color:#fff; cursor:pointer; font-size:15px;
+  }
+  .case-structure-tree{ font-family:var(--font-mono); font-size:10px; line-height:1.35; }
+  .case-structure-root{ margin-bottom:5px; }
+  .structure-item{ min-width:0; }
+  .structure-node{
+    display:flex; align-items:center; gap:4px; width:100%; min-width:0;
+    padding:4px 5px; border-radius:4px; color:#efe5d4; cursor:pointer;
+    text-align:left; border:1px solid transparent; background:transparent;
+    font-family:var(--font-mono); font-size:10px;
+  }
+  .structure-node:hover{ background:rgba(201,161,90,.12); border-color:rgba(201,161,90,.18); }
+  .structure-node .structure-caret{ flex:0 0 12px; width:12px; text-align:center; color:var(--brass); opacity:.9; }
+  .structure-node .structure-icon{ flex:0 0 auto; width:16px; text-align:center; }
+  .structure-node .structure-state{ flex:0 0 auto; width:13px; text-align:center; opacity:.85; }
+  .structure-node .structure-label{ flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .structure-node.root-node{ font-weight:800; color:var(--brass); }
+  .structure-children{ margin-left:14px; border-left:1px solid rgba(201,161,90,.18); padding-left:5px; }
+  .structure-empty{ padding:12px 6px; color:rgba(236,227,206,.62); font-size:10px; line-height:1.5; }
+  .structure-badge{ margin-left:auto; padding:2px 5px; border-radius:4px; background:rgba(201,161,90,.12); color:rgba(236,227,206,.65); font-size:8px; }
+  #caseStructureToggle.active{ outline:2px solid rgba(255,255,255,.8); }
+  @media (max-width:760px){
+    #caseStructurePanel{ top:62px; left:8px; width:calc(100vw - 16px); max-height:72vh; }
+    #caseStructureToggle{ min-width:44px; }
+  }
+
+

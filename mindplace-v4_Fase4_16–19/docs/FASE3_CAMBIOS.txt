@@ -1,0 +1,32 @@
+MINDPLACE — FASE 3 / MODULARIZACIÓN 04
+
+Se continúa la Fase 3 sin cambios intencionados de funcionalidad visible.
+
+Cambios:
+- app.js usa los modelos formales de models.js para crear casos, nodos y conexiones nuevas.
+- app.js usa validators.js para validar nodos y conexiones antes de incorporarlos al estado.
+- normalizeStateForSave() ejecuta la validación del modelo Case sobre la copia normalizada y registra advertencias de modelo sin mutar la interacción en curso.
+- Se evita la colisión de nombres entre la función local createCase() y el constructor formal mediante createCaseModel.
+- Se mantienen separadas las responsabilidades previamente extraídas:
+  board-render.js, board-connections.js, board-interactions.js, board-signatures.js,
+  board-visuals.js y case-structure.js.
+- No se han modificado index_mejoras.html ni styles.css en este paso.
+
+Puntos de la hoja de ruta avanzados:
+19. División del JavaScript por bloques funcionales: avanzado.
+21. Eliminación de lógica repetida: avanzado.
+22. Unificación progresiva del estado: avanzado parcialmente; sigue pendiente una extracción más amplia.
+23. Modelo Case: definido y ya usado en creación de casos.
+24. Modelo Node: definido y ya usado en creación de nodos.
+25. Modelo Edge: definido y ya usado en creación de conexiones.
+26. Modelo Attachment: definido formalmente.
+27. Modelo History: definido formalmente.
+28. Modelo Preferences: definido formalmente.
+29. Validadores reutilizables: usados en creación de nodos/conexiones y validación del caso al guardar.
+30. Reducción de dependencias entre módulos: avanzado.
+
+Validación realizada:
+- node --check sobre todos los archivos JS: OK.
+- Importación independiente de models.js y validators.js: OK.
+- Validación de ejemplo para Case, Node, Edge, Attachment, History y Preferences: OK.
+- No se ha afirmado una prueba interactiva completa de navegador porque el entorno local no la ha permitido.

@@ -1,0 +1,10 @@
+# Temporales de pruebas de navegador
+.phase14-browser-profile-*
+.phase15-browser-profile-*
+
+# Evidencias temporales de PowerShell
+pruebas_powershell/*.tmp
+pruebas_powershell/*.log
+
+# Dependencias locales
+node_modules/

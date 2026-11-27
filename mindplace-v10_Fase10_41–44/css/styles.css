@@ -1,0 +1,23 @@
+/*
+ * MindPlace — Fase 4
+ * Hoja de estilo principal.
+ *
+ * Los módulos se cargan en el mismo orden que tenía el CSS monolítico
+ * para conservar la cascada original y evitar regresiones visuales.
+ */
+
+@import url("./00-tokens-themes.css");
+@import url("./01-shell-toolbar.css");
+@import url("./02-case-search.css");
+@import url("./03-case-filters.css");
+@import url("./04-case-structure.css");
+@import url("./05-edge-relationships.css");
+@import url("./05-presentation.css");
+@import url("./06-help-and-connections.css");
+@import url("./07-cards.css");
+@import url("./08-feedback-and-overlays.css");
+@import url("./09-clean-mode-and-modals.css");
+@import url("./10-menu-and-case-dashboard.css");
+@import url("./11-case-board-visuals.css");
+@import url("./12-board-zoom-and-minimap.css");
+@import url("./13-responsive.css");

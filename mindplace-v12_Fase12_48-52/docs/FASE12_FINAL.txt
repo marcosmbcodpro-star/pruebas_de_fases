@@ -1,0 +1,36 @@
+MINDPLACE — FASE 12 FINAL
+Gestión profesional de casos
+
+136. Dashboard de casos/proyectos
+- Se añadió un resumen general del archivo de proyectos.
+- Muestra proyectos activos, abiertos, en curso, resueltos y contenido total.
+
+137. Estado del proyecto
+- El estado se mantiene visible en las tarjetas del archivo y se incluye en el resumen global.
+
+138. Información relevante del caso
+- Cada proyecto muestra título, descripción, estado, categoría, fecha de actualización y métricas de tarjetas, conexiones y adjuntos.
+
+139. Clasificación y organización
+- Se conserva la clasificación por categorías y ordenación por fecha, nombre o estado.
+- El dashboard agrupa mentalmente el archivo sin cambiar el modelo de datos.
+
+140. Historial de cambios importantes
+- Cada proyecto registra actividad relevante y dispone de una vista propia de actividad.
+
+141. Trazabilidad
+- Se registran cambios importantes como creación, edición de metadatos, adición/eliminación de elementos, creación de relaciones y movimiento a papelera.
+
+142. Historial del proyecto vs Undo/Redo
+- La interfaz explica y separa ambos sistemas:
+  historial del proyecto = trazabilidad persistente;
+  Undo/Redo = deshacer/rehacer edición de la sesión.
+
+143. Navegación entre proyectos
+- Se añadieron botones de proyecto anterior/siguiente según el orden activo del archivo.
+- La navegación respeta casos en papelera y el orden seleccionado.
+
+Validación técnica
+- Todos los módulos JavaScript pasan node --check.
+- Imports CSS verificados.
+- ZIP verificado íntegramente.

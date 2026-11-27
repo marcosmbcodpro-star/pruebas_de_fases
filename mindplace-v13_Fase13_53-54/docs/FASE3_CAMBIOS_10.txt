@@ -1,0 +1,27 @@
+MindPlace — Fase 3 / Modularización 10
+
+Extraída la gestión del ciclo de vida del caso desde app.js a case-lifecycle.js.
+
+Responsabilidades ahora centralizadas:
+- actualización de metadatos del caso;
+- creación de casos;
+- cálculo del título de continuaciones;
+- creación de casos de continuación;
+- control del límite de tarjetas y propuesta de continuación;
+- aplicación visual de metadatos del caso;
+- cambio de estado del caso;
+- apertura de casos;
+- regreso al menú principal.
+
+app.js conserva la coordinación y conecta dependencias mediante createCaseLifecycle().
+No se modificaron deliberadamente HTML ni CSS.
+
+Validaciones realizadas:
+- node --check sobre todos los módulos JavaScript: OK.
+- no quedan las implementaciones antiguas de las funciones extraídas en app.js.
+- carga HTTP local de index_mejoras.html: HTTP 200.
+- se mantuvieron las llamadas existentes a openCase, backToMenu y ensureCaseCapacityForNewNode.
+
+Resultado aproximado:
+- app.js: 4093 líneas.
+- case-lifecycle.js: 261 líneas.

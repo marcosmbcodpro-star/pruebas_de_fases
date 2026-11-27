@@ -1,0 +1,12 @@
+{
+  "name": "mindplace-solo-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:phase14": "node --test tests/phase14-core.test.mjs",
+    "test:browser": "node scripts/phase14-browser.mjs",
+    "test:phase15": "node --test tests/phase15-final.test.mjs && node scripts/phase15-audit.mjs",
+    "test:all": "npm test && npm run test:browser && npm run test:phase15"
+  }
+}
